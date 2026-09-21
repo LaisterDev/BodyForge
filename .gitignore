@@ -12,5 +12,7 @@ plugin/lib/*.dll
 
 # editor / OS noise
 .godot/
+__pycache__/
+*.py[cod]
 *.user
 .DS_Store

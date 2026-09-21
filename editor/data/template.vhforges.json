@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "character": "lst",
+  "bones": {
+    "Hips":         { "scale": [1.0, 1.0, 1.0] },
+    "Spine":        { "scale": [1.0, 1.0, 1.0] },
+    "Spine1":       { "scale": [1.0, 1.0, 1.0] },
+    "Spine2":       { "scale": [1.0, 1.0, 1.0] },
+    "Neck":         { "scale": [1.0, 1.0, 1.0] },
+    "Head":         { "scale": [1.0, 1.0, 1.0] },
+    "Jaw":          { "scale": [1.0, 1.0, 1.0] },
+    "LeftShoulder": { "scale": [1.15, 1.0, 1.0] },
+    "LeftArm":      { "scale": [1.0, 1.0, 1.0] },
+    "LeftForeArm":  { "scale": [1.0, 1.0, 1.0] },
+    "LeftHand":     { "scale": [1.0, 1.0, 1.0] },
+    "RightShoulder": { "scale": [1.15, 1.0, 1.0] },
+    "RightArm":     { "scale": [1.0, 1.0, 1.0] },
+    "RightForeArm": { "scale": [1.0, 1.0, 1.0] },
+    "RightHand":    { "scale": [1.0, 1.0, 1.0] },
+    "LeftUpLeg":    { "scale": [1.0, 1.0, 1.0] },
+    "LeftLeg":      { "scale": [1.0, 1.0, 1.0] },
+    "LeftFoot":     { "scale": [1.0, 1.0, 1.0] },
+    "LeftToeBase":  { "scale": [1.0, 1.0, 1.0] },
+    "RightUpLeg":   { "scale": [1.0, 1.0, 1.0] },
+    "RightLeg":     { "scale": [1.0, 1.0, 1.0] },
+    "RightFoot":    { "scale": [1.0, 1.0, 1.0] },
+    "RightToeBase": { "scale": [1.0, 1.0, 1.0] }
+  }
+}

@@ -1,0 +1,16 @@
+# build
+bin/
+obj/
+artifacts/
+editor/bundled/
+
+# vendored BepInEx (downloaded, LGPL, not part of the repo)
+vendor/
+
+# local build references extracted from the pinned BepInEx pack
+plugin/lib/*.dll
+
+# editor / OS noise
+.godot/
+*.user
+.DS_Store

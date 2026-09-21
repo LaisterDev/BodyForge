@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/proportions_tab.gd" id="1"]
+
+[node name="ProportionsTab" type="VBoxContainer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 8
+script = ExtResource("1")
+
+[node name="Header" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Copy" type="VBoxContainer" parent="Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Header/Copy"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Body proportions"
+
+[node name="Description" type="Label" parent="Header/Copy"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.61, 0.67, 1)
+text = "Drag a slider or type an exact multiplier. 1.00× is the original size."
+
+[node name="Count" type="VBoxContainer" parent="Header"]
+layout_mode = 2
+
+[node name="SymmetryToggle" type="CheckButton" parent="Header/Count"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Symmetry"
+tooltip_text = "Use one control for both left and right bones"
+
+[node name="GroupLabel" type="Label" parent="Header/Count"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 2
+text = "53 bones"
+
+[node name="ResetAll" type="Button" parent="Header/Count"]
+layout_mode = 2
+text = "Reset all"
+
+[node name="TokenCard" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="TokenBox" type="VBoxContainer" parent="TokenCard"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TokenCard/TokenBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.61, 0.67, 1)
+text = "Proportions file"
+
+[node name="TokenPathLabel" type="Label" parent="TokenCard/TokenBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Select a character first"
+text_overrun_behavior = 3
+autowrap_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="BoneList" type="VBoxContainer" parent="Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[connection signal="pressed" from="Header/Count/ResetAll" to="." method="reset_all"]
+[connection signal="toggled" from="Header/Count/SymmetryToggle" to="." method="_on_symmetry_toggled"]

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Development tool: separate assembly so it can be removed independently. -->
+    <AssemblyName>BoneDumper</AssemblyName>
+    <RootNamespace>BodyForge</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\BodyForge\MiniJson.cs" Link="MiniJson.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,88 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/appearance_tab.gd" id="1"]
+
+[node name="AppearanceTab" type="VBoxContainer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 10
+script = ExtResource("1")
+
+[node name="Intro" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Intro"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Appearance"
+
+[node name="Description" type="Label" parent="Intro"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.61, 0.67, 1)
+text = "Changes appear instantly on your active Viking."
+autowrap_mode = 2
+
+[node name="FormCard" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="FormCard"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 12
+
+[node name="ModelLabel" type="Label" parent="FormCard/Grid"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Body model"
+
+[node name="ModelOpts" type="OptionButton" parent="FormCard/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HairLabel" type="Label" parent="FormCard/Grid"]
+layout_mode = 2
+text = "Hair style"
+
+[node name="HairOpts" type="OptionButton" parent="FormCard/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BeardLabel" type="Label" parent="FormCard/Grid"]
+layout_mode = 2
+text = "Beard style"
+
+[node name="BeardOpts" type="OptionButton" parent="FormCard/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SkinLabel" type="Label" parent="FormCard/Grid"]
+layout_mode = 2
+text = "Skin color"
+
+[node name="SkinColor" type="ColorPickerButton" parent="FormCard/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.65, 0.65, 0.65, 1)
+
+[node name="HairColorLabel" type="Label" parent="FormCard/Grid"]
+layout_mode = 2
+text = "Hair color"
+
+[node name="HairColor" type="ColorPickerButton" parent="FormCard/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.46, 0.27, 0.18, 1)
+
+[node name="Spacer" type="Control" parent="."]
+layout_mode = 2
+size_flags_vertical = 3

@@ -1,0 +1,22 @@
+{
+  "$comment": "Vanilla character-creation options. Values are the exact strings the game stores in the .fch (prefab/hair/beard identifiers; the menus resolve them from ObjectDB). Curated from shipped 1.0.x options and confirmed against real saves (Hair4, Hair18, BeardNone observed). Extend this file for modded content — BodyForge writes whatever string the palette provides; unknown names simply display as default in-game.",
+  "source": "curated-vanilla-1.0.x + observed saves (2026-09)",
+  "schemaVersion": 1,
+  "models": [
+    { "name": "Viking male",   "index": 0 },
+    { "name": "Viking female", "index": 1 }
+  ],
+  "hairs": [
+    "HairNone", "Hair1", "Hair2", "Hair3", "Hair4", "Hair5", "Hair6",
+    "Hair7", "Hair8", "Hair9", "Hair10", "Hair11", "Hair12", "Hair13",
+    "Hair14", "Hair15", "Hair16", "Hair17", "Hair18"
+  ],
+  "beards": [
+    "BeardNone", "Beard1", "Beard2", "Beard3", "Beard4", "Beard5",
+    "Beard6", "Beard7", "Beard8", "Beard9", "Beard10"
+  ],
+  "defaults": {
+    "skinColor":  [0.65, 0.65, 0.65],
+    "hairColor":  [0.46, 0.27, 0.18]
+  }
+}

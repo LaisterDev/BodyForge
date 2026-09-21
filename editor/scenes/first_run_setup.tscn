@@ -1,0 +1,179 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/first_run_setup.gd" id="1"]
+
+[node name="FirstRunSetup" type="PanelContainer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+z_index = 100
+script = ExtResource("1")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 28
+
+[node name="Scroll" type="ScrollContainer" parent="Margin"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Content" type="VBoxContainer" parent="Margin/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Margin/Scroll/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.72, 0.38, 1)
+theme_override_font_sizes/font_size = 26
+text = "Set up BodyForge"
+
+[node name="PortableInfo" type="Label" parent="Margin/Scroll/Content"]
+layout_mode = 2
+text = "BodyForge is portable. Nothing is installed into your operating system; keep or move this folder anywhere. Only the Valheim mod files are copied into the game folder."
+autowrap_mode = 2
+
+[node name="GameCard" type="PanelContainer" parent="Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="GameContent" type="VBoxContainer" parent="Margin/Scroll/Content/GameCard"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="Margin/Scroll/Content/GameCard/GameContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "1. Locate Valheim"
+
+[node name="GameRow" type="HBoxContainer" parent="Margin/Scroll/Content/GameCard/GameContent"]
+layout_mode = 2
+
+[node name="GameDir" type="LineEdit" parent="Margin/Scroll/Content/GameCard/GameContent/GameRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "/path/to/steamapps/common/Valheim"
+
+[node name="DetectButton" type="Button" parent="Margin/Scroll/Content/GameCard/GameContent/GameRow"]
+layout_mode = 2
+text = "Detect"
+
+[node name="BrowseButton" type="Button" parent="Margin/Scroll/Content/GameCard/GameContent/GameRow"]
+layout_mode = 2
+text = "Browse"
+
+[node name="BepInExCard" type="PanelContainer" parent="Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="BepInExContent" type="VBoxContainer" parent="Margin/Scroll/Content/BepInExCard"]
+layout_mode = 2
+
+[node name="BepInExTitle" type="Label" parent="Margin/Scroll/Content/BepInExCard/BepInExContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "2. BepInEx dependency"
+
+[node name="ThirdPartyInfo" type="RichTextLabel" parent="Margin/Scroll/Content/BepInExCard/BepInExContent"]
+custom_minimum_size = Vector2(0, 98)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "BepInEx is third-party, open-source mod-loader software maintained independently from BodyForge. BodyForge requires BepInEx 5.4.23.5 or newer. The recommended community Valheim pack is downloaded from Thunderstore and verified before extraction. License: LGPL-2.1.\n[url=https://thunderstore.io/c/valheim/p/denikson/BepInExPack_Valheim/]Open the official package page[/url]"
+
+[node name="BepInExStatus" type="Label" parent="Margin/Scroll/Content/BepInExCard/BepInExContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Choose the Valheim folder to check BepInEx."
+autowrap_mode = 2
+
+[node name="ConsentCheck" type="CheckButton" parent="Margin/Scroll/Content/BepInExCard/BepInExContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "I understand that BepInEx is required third-party software."
+
+[node name="InstallBepInExButton" type="Button" parent="Margin/Scroll/Content/BepInExCard/BepInExContent"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Download and install compatible BepInEx"
+
+[node name="LinuxLaunchRow" type="VBoxContainer" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LaunchTitle" type="Label" parent="Margin/Scroll/Content/LinuxLaunchRow"]
+layout_mode = 2
+text = "Linux/Proton Steam Launch Options"
+
+[node name="CommandRow" type="HBoxContainer" parent="Margin/Scroll/Content/LinuxLaunchRow"]
+layout_mode = 2
+
+[node name="LaunchCommand" type="LineEdit" parent="Margin/Scroll/Content/LinuxLaunchRow/CommandRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+text = "WINEDLLOVERRIDES=\"winhttp=n,b\" %command%"
+
+[node name="CopyLaunchButton" type="Button" parent="Margin/Scroll/Content/LinuxLaunchRow/CommandRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Copy command"
+tooltip_text = "Copy the required Steam Launch Options command"
+
+[node name="LinuxLaunchCheck" type="CheckButton" parent="Margin/Scroll/Content/LinuxLaunchRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "I added this command to Valheim's Steam Launch Options."
+tooltip_text = "Required on Linux/Proton so Valheim loads BepInEx's winhttp.dll"
+
+[node name="Progress" type="ProgressBar" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+show_percentage = false
+value = 0.0
+
+[node name="SetupStatus" type="Label" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Setup has not started."
+autowrap_mode = 2
+
+[node name="Spacer" type="Control" parent="Margin/Scroll/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FinishButton" type="Button" parent="Margin/Scroll/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+disabled = true
+theme_type_variation = &"PrimaryButton"
+text = "INSTALL BODYFORGE AND CONTINUE"
+
+[node name="GameDirDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Choose the Valheim folder"
+size = Vector2i(760, 520)
+file_mode = 2
+access = 2
+
+[node name="DownloadRequest" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+download_chunk_size = 65536
+
+[connection signal="text_submitted" from="Margin/Scroll/Content/GameCard/GameContent/GameRow/GameDir" to="." method="_on_game_dir_submitted"]
+[connection signal="pressed" from="Margin/Scroll/Content/GameCard/GameContent/GameRow/DetectButton" to="." method="_on_detect_pressed"]
+[connection signal="pressed" from="Margin/Scroll/Content/GameCard/GameContent/GameRow/BrowseButton" to="." method="_on_browse_pressed"]
+[connection signal="meta_clicked" from="Margin/Scroll/Content/BepInExCard/BepInExContent/ThirdPartyInfo" to="." method="_on_link_clicked"]
+[connection signal="toggled" from="Margin/Scroll/Content/BepInExCard/BepInExContent/ConsentCheck" to="." method="_on_requirement_changed"]
+[connection signal="pressed" from="Margin/Scroll/Content/BepInExCard/BepInExContent/InstallBepInExButton" to="." method="_on_install_bepinex_pressed"]
+[connection signal="toggled" from="Margin/Scroll/Content/LinuxLaunchRow/LinuxLaunchCheck" to="." method="_on_requirement_changed"]
+[connection signal="pressed" from="Margin/Scroll/Content/LinuxLaunchRow/CommandRow/CopyLaunchButton" to="." method="_on_copy_launch_pressed"]
+[connection signal="pressed" from="Margin/Scroll/Content/FinishButton" to="." method="_on_finish_pressed"]
+[connection signal="dir_selected" from="GameDirDialog" to="." method="_on_game_dir_selected"]
+[connection signal="request_completed" from="DownloadRequest" to="." method="_on_download_completed"]

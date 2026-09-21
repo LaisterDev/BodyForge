@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://bodyforge.example.org/schema/vhforges.schema.json",
+  "title": "BodyForge character proportions",
+  "description": "Format of the <char>.vhforges.json file applied at runtime by the BodyForge BepInEx plugin to each bone transform of the character skeleton (m_bodyModel.bones, VisEquipment).",
+  "type": "object",
+  "required": ["schemaVersion", "bones"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1,
+      "description": "Schema version. Bumping it breaks backward-compatible reading."
+    },
+    "character": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "Character base name (e.g. 'lst'). Informational only; the plugin associates the file by the .fch base name itself."
+    },
+    "bones": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[A-Za-z0-9_\\-+., ]{1,64}$": {
+          "type": "object",
+          "required": ["scale"],
+          "additionalProperties": false,
+          "properties": {
+            "scale": {
+              "type": "array",
+              "items": { "type": "number", "minimum": 0.01, "maximum": 100 },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "enabled": {
+              "type": "boolean",
+              "default": true,
+              "description": "false ignores the bone (keeps the original localScale)."
+            }
+          }
+        }
+      },
+      "description": "Map of bone name -> local transform (final scale applied to Transform.localScale). Bones not listed are left untouched."
+    }
+  }
+}

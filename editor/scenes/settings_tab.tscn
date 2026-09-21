@@ -1,0 +1,105 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/settings_tab.gd" id="1"]
+
+[node name="SettingsTab" type="VBoxContainer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+script = ExtResource("1")
+
+[node name="Intro" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Intro"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Settings"
+
+[node name="Description" type="Label" parent="Intro"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.61, 0.67, 1)
+text = "Configure the Valheim integration and editor window."
+
+[node name="PathsCard" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="PathsCard"]
+layout_mode = 2
+columns = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 12
+
+[node name="GameLabel" type="Label" parent="PathsCard/Grid"]
+custom_minimum_size = Vector2(200, 0)
+text = "Game folder"
+
+[node name="GameDirEdit" type="LineEdit" parent="PathsCard/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "/path/to/steamapps/common/Valheim"
+
+[node name="BrowseGame" type="Button" parent="PathsCard/Grid"]
+layout_mode = 2
+text = "Browse..."
+
+[node name="TokenLabel" type="Label" parent="PathsCard/Grid"]
+text = "Proportions token folder"
+
+[node name="TokenDirEdit" type="LineEdit" parent="PathsCard/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "/path/to/Valheim/BepInEx/config/BodyForge"
+
+[node name="BrowseToken" type="Button" parent="PathsCard/Grid"]
+layout_mode = 2
+text = "Browse..."
+
+[node name="ActionsCard" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="ActionsCard"]
+layout_mode = 2
+
+[node name="AlwaysOnTop" type="CheckButton" parent="ActionsCard/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Always on top"
+button_pressed = true
+
+[node name="DetectButton" type="Button" parent="ActionsCard/Actions"]
+layout_mode = 2
+text = "Detect folders"
+
+[node name="Spacer" type="Control" parent="ActionsCard/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ApplyButton" type="Button" parent="ActionsCard/Actions"]
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "Apply settings"
+
+[node name="HintLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.58, 0.61, 0.67, 1)
+text = ""
+autowrap_mode = 2
+
+[node name="DirDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Choose a folder"
+size = Vector2i(720, 480)
+mode_overrides_title = true
+file_mode = 4
+access = 2
+
+[connection signal="dir_selected" from="DirDialog" to="." method="_on_dir_selected"]

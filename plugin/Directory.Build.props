@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <!-- Shared build settings for all BodyForge plugins (net472 / Unity Mono). -->
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <Nullable>disable</Nullable>
+    <DebugType>portable</DebugType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Version>0.1.0</Version>
+    <Product>BodyForge</Product>
+    <RepositoryUrl>https://github.com/sergiovalente/BodyForge</RepositoryUrl>
+  </PropertyGroup>
+
+  <!-- Path resolution. Override any of these with -p:ValheimManaged=/path etc. -->
+  <PropertyGroup>
+    <_Home>$([System.Environment]::GetEnvironmentVariable('HOME'))</_Home>
+    <ValheimManaged Condition="'$(ValheimManaged)' == ''">$(_Home)/.steam/steam/steamapps/common/Valheim/valheim_Data/Managed</ValheimManaged>
+    <BepInExLib Condition="'$(BepInExLib)' == ''">$(MSBuildThisFileDirectory)lib</BepInExLib>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="$(ValheimManaged)/*.dll">
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="$(BepInExLib)/BepInEx.dll">
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="$(BepInExLib)/0Harmony.dll">
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

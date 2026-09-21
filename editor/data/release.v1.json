@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "bodyForgeVersion": "0.4.0",
+  "bepInEx": {
+    "name": "BepInExPack Valheim",
+    "coreMinimum": "5.4.23.5",
+    "packageVersion": "5.4.2350",
+    "owner": "denikson",
+    "license": "LGPL-2.1",
+    "homepage": "https://thunderstore.io/c/valheim/p/denikson/BepInExPack_Valheim/",
+    "downloadUrl": "https://thunderstore.io/package/download/denikson/BepInExPack_Valheim/5.4.2350/",
+    "sha256": "37a91c000b4e88f2ed7a4bd7d812239852d2e36cbf0ff0a9f5faacfba46b105f"
+  }
+}

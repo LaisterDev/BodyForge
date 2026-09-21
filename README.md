@@ -12,6 +12,14 @@
   <p><sub>Bitcoin: <code>BC1QG668UZLAY5C5KHAAM86GKS7TLY587UY5C0R9DA</code> &middot; Lightning: <code>curlypostbox723@walletofsatoshi.com</code></sub></p>
 </div>
 
+<div align="center">
+  <h3>See BodyForge in action</h3>
+  <a href="https://www.youtube.com/watch?v=T4Eo0G4Hui8">
+    <img src="https://img.youtube.com/vi/T4Eo0G4Hui8/maxresdefault.jpg" width="640" alt="Watch the BodyForge showcase on YouTube">
+  </a>
+  <p><sub>Click the preview to watch the showcase on YouTube.</sub></p>
+</div>
+
 BodyForge is a live character editor for Valheim.
 Change your Viking in-game to the way you like.
 

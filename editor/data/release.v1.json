@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "bodyForgeVersion": "0.4.0",
+  "bodyForgeVersion": "0.4.1",
   "bepInEx": {
     "name": "BepInExPack Valheim",
     "coreMinimum": "5.4.23.5",

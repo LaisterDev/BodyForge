@@ -3,7 +3,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-VERSION="${VERSION:-0.4.0}"
+VERSION="${VERSION:-0.4.1}"
 GODOT="${GODOT:-godot}"
 OUT="$ROOT/artifacts/releases"
 STAGE="$OUT/stage"

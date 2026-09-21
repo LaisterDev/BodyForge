@@ -1,6 +1,7 @@
 extends Control
 
 @onready var title_label: Label = %TitleLabel
+@onready var version_label: Label = %VersionLabel
 @onready var active_profile_label: Label = %ActiveProfileLabel
 @onready var save_character_button: Button = %SaveCharacterButton
 @onready var save_help: Label = %SaveHelp
@@ -30,6 +31,7 @@ var _character_available := false
 func _ready() -> void:
 	WindowFit.constrain_to_screen()
 	title_label.text = "BODYFORGE"
+	version_label.text = _release_version()
 	_catalogue = BoneCatalogue.load_file("res://data/bone_catalogue.v1.json")
 	if not _catalogue.error_msg.is_empty():
 		_set_status("Catalogue error: " + _catalogue.error_msg, true)
@@ -57,6 +59,18 @@ func _ready() -> void:
 	_apply_window_settings()
 	_update_save_ui()
 	_set_status("Enter a Valheim world. BodyForge will select that character automatically.", false)
+
+
+func _release_version() -> String:
+	var file := FileAccess.open("res://data/release.v1.json", FileAccess.READ)
+	if file == null:
+		return ""
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
+	if parsed is Dictionary:
+		var version := str(parsed.get("bodyForgeVersion", ""))
+		if not version.is_empty():
+			return "v" + version
+	return ""
 
 
 func _notification(what: int) -> void:

@@ -34,6 +34,6 @@ namespace BodyForge
     {
         public const string Id = "com.bodyforge.characterprops";
         public const string Name = "BodyForge Character Proportions";
-        public const string Version = "0.4.1";
+        public const string Version = "0.4.2";
     }
 }

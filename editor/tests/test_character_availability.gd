@@ -15,6 +15,10 @@ func _run() -> void:
 	_check(not tabs.is_tab_disabled(1), "Proportions remains selectable")
 	_check(model_options.disabled, "Appearance controls start locked")
 	_check(main.appearance_tab.modulate.a == 0.5, "Locked content is visually muted")
+	tabs.current_tab = 1
+	await process_frame
+	var proportions_scroll: ScrollContainer = main.get_node("MarginContainer/Layout/MainColumn/Tabs/Proportions/Scroll")
+	_check(proportions_scroll.size.y >= 212.0, "Proportions shows at least two complete rows")
 
 	main._live_connected = true
 	main._active_profile = "TestViking"

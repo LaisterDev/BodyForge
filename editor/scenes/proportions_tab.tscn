@@ -27,17 +27,21 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.58, 0.61, 0.67, 1)
 text = "Drag a slider or type an exact multiplier. 1.00× is the original size."
 
-[node name="Count" type="VBoxContainer" parent="Header"]
+[node name="Count" type="HBoxContainer" parent="Header"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ToggleStack" type="VBoxContainer" parent="Header/Count"]
 layout_mode = 2
 
-[node name="SymmetryToggle" type="CheckButton" parent="Header/Count"]
+[node name="SymmetryToggle" type="CheckButton" parent="Header/Count/ToggleStack"]
 unique_name_in_owner = true
 layout_mode = 2
 button_pressed = true
 text = "Symmetry"
 tooltip_text = "Use one control for both left and right bones"
 
-[node name="GroupLabel" type="Label" parent="Header/Count"]
+[node name="GroupLabel" type="Label" parent="Header/Count/ToggleStack"]
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_alignment = 2
@@ -45,6 +49,7 @@ text = "53 bones"
 
 [node name="ResetAll" type="Button" parent="Header/Count"]
 layout_mode = 2
+size_flags_vertical = 4
 text = "Reset all"
 
 [node name="TokenCard" type="PanelContainer" parent="."]
@@ -77,4 +82,4 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
 [connection signal="pressed" from="Header/Count/ResetAll" to="." method="reset_all"]
-[connection signal="toggled" from="Header/Count/SymmetryToggle" to="." method="_on_symmetry_toggled"]
+[connection signal="toggled" from="Header/Count/ToggleStack/SymmetryToggle" to="." method="_on_symmetry_toggled"]

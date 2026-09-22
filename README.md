@@ -41,9 +41,8 @@ Download the portable ZIP for your operating system from the
 - `BodyForge-<version>-Windows-x86_64-Portable.zip`
 - `BodyForge-<version>-Linux-x86_64-Portable.zip`
 
-Extract the complete ZIP into a folder you can keep. BodyForge is portable: it
-does not install anything into Windows or Linux and can be moved or removed by
-moving or deleting its folder.
+BodyForge is portable: it does not install anything into Windows or Linux
+and can be removed deleting its folder.
 
 Do not download the repository source code unless you want to develop or build
 BodyForge yourself.
@@ -61,15 +60,13 @@ third-party open-source software licensed under LGPL-2.1.
 ## Installation
 
 1. Extract the portable ZIP.
-2. Run the BodyForge executable from the extracted folder.
-3. Confirm or select your Valheim installation folder.
+2. Run the BodyForge.
+3. Confirm/select your Valheim installation folder.
 4. Read and accept the BepInEx dependency notice.
-5. If needed, choose **Download and install compatible BepInEx**. BodyForge
-   downloads the recommended community package from Thunderstore and verifies its
-   pinned SHA-256 before extracting it.
+5. If needed, choose **Download and install compatible BepInEx**. direct from BodyForge interface.
 6. Complete the platform-specific step shown below.
 7. Choose **Install BodyForge and continue**.
-8. Start or restart Valheim so BepInEx loads the installed plugin.
+8. Start/restart Valheim so BepInEx loads the installed plugin.
 
 The wizard preserves existing BepInEx plugins and configuration files when it
 installs or updates the loader.
@@ -97,9 +94,9 @@ chmod +x BodyForge-*-Linux-x86_64-Portable
 ## Using BodyForge
 
 1. Start BodyForge and Valheim.
-2. Select a character and enter a world.
-3. Open Valheim's pause menu so your character remains visible.
-4. Use the **Appearance** and **Proportions** tabs in BodyForge.
+2. In Valheim select a character and enter a world.
+3. Pause the game so your character remains visible.
+4. Pause the game so your character remains visible.
 5. Choose **Save character** when finished.
 
 After finishing and saving your character, the editor can be closed and does 

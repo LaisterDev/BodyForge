@@ -35,6 +35,11 @@
   <img src="https://images.steamusercontent.com/ugc/17261696831785383189/7C39F8E081A5C7A7E05CF7F0B522CDEB442974F7/" width="640" alt="Fiona">
 </div>
 
+<div align="center">
+  <h3>Whatever type of character suits your style:</h3>
+  <img src="https://images.steamusercontent.com/ugc/12120840943570311928/F2AB0B36E1B33DAFAF0E782D5B19B9D716F1A7E4/" width="640" alt="Stylized characters">
+</div>
+
 BodyForge is a live character editor for Valheim.
 Change your Viking in-game to the way you like.
 

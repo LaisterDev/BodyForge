@@ -20,6 +20,21 @@
   <p><sub>Click the preview to watch the showcase on YouTube.</sub></p>
 </div>
 
+<div align="center">
+  <h3>You can make small adjustments for narrower shoulders and smaller arms and hands:</h3>
+  <img src="https://images.steamusercontent.com/ugc/14123281627147349080/09546FCD550E78431F7120A37E9230AD97B35102/" width="640" alt="Narrower shoulders and smaller arms and hands">
+</div>
+
+<div align="center">
+  <h3>Or various changes—for example, if you want to play as Clark Kent:</h3>
+  <img src="https://images.steamusercontent.com/ugc/15902110926992787550/A6A1898A827269A7ADF7FBC7B44AAEE26ECA7184/" width="640" alt="Clark Kent">
+</div>
+
+<div align="center">
+  <h3>Or even if you want to play as a thick Fiona, if that's your thing, haha:</h3>
+  <img src="https://images.steamusercontent.com/ugc/17261696831785383189/7C39F8E081A5C7A7E05CF7F0B522CDEB442974F7/" width="640" alt="Fiona">
+</div>
+
 BodyForge is a live character editor for Valheim.
 Change your Viking in-game to the way you like.
 

@@ -1,6 +1,8 @@
 # build
 bin/
 obj/
+bin-dev/
+obj-dev/
 artifacts/
 editor/bundled/
 

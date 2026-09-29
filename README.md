@@ -46,9 +46,15 @@ Change your Viking in-game to the way you like.
 BodyForge can edit:
 
 - Body model, hair, beard, skin color and hair color.
-- Overall body scale and 52 additional skeleton bones.
+- 47 semantic anatomy controls for the body, head, face, torso and limbs.
+- Overall body scale and 52 additional skeleton bones in the optional
+  **Advanced skeleton** section.
 - Left and right limbs together with symmetry, or independently.
 - Exact X, Y and Z scale values for every proportion control.
+
+Anatomy changes use the original Valheim meshes. Resetting the values always
+restores the exact vanilla body. Compatible clothing follows the same deformation
+pipeline, and cape cloth simulation remains intact.
 
 BodyForge is an unofficial community project. It is not affiliated with Iron
 Gate AB or Coffee Stain Publishing.
@@ -62,7 +68,7 @@ Download the portable ZIP for your operating system from the
 - `BodyForge-<version>-Linux-x86_64-Portable.zip`
 
 BodyForge is portable: it does not install anything into Windows or Linux
-and can be removed deleting its folder.
+and can be removed by deleting its folder.
 
 Do not download the repository source code unless you want to develop or build
 BodyForge yourself.
@@ -80,10 +86,11 @@ third-party open-source software licensed under LGPL-2.1.
 ## Installation
 
 1. Extract the portable ZIP.
-2. Run the BodyForge.
+2. Run BodyForge.
 3. Confirm/select your Valheim installation folder.
 4. Read and accept the BepInEx dependency notice.
-5. If needed, choose **Download and install compatible BepInEx**. direct from BodyForge interface.
+5. If needed, choose **Download and install compatible BepInEx** directly from
+   the BodyForge interface.
 6. Complete the platform-specific step shown below.
 7. Choose **Install BodyForge and continue**.
 8. Start/restart Valheim so BepInEx loads the installed plugin.
@@ -116,7 +123,7 @@ chmod +x BodyForge-*-Linux-x86_64-Portable
 1. Start BodyForge and Valheim.
 2. In Valheim select a character and enter a world.
 3. Pause the game so your character remains visible.
-4. Pause the game so your character remains visible.
+4. Edit appearance, anatomy or advanced skeleton controls in BodyForge.
 5. Choose **Save character** when finished.
 
 After finishing and saving your character, the editor can be closed and does 
@@ -124,10 +131,10 @@ not need to be opened again.
 
 ### Import and export
 
-**Export** creates a `.bodyforge.json` package containing appearance, all bone
-scales and the symmetry preference. **Import** applies a package to the character
-currently active in Valheim. Choose **Save character** afterward to persist the
-imported result.
+**Export** creates a `.bodyforge.json` package containing appearance, anatomy, all bone scales, symmetry and editor state. **Import** applies a package to the character currently active in Valheim.
+Choose **Save character** afterward to persist the imported result.
+
+BodyForge `v0.5.0` writes schema 2 proportion tokens. Existing schema 1 tokens remain supported and load with neutral anatomy values.
 
 ## Multiplayer
 

@@ -1,17 +1,19 @@
 extends Control
 
+const RELEASE_UPDATE := preload("res://scripts/release_update.gd")
+
 @onready var title_label: Label = %TitleLabel
 @onready var version_label: Label = %VersionLabel
 @onready var active_profile_label: Label = %ActiveProfileLabel
 @onready var save_character_button: Button = %SaveCharacterButton
-@onready var save_help: Label = %SaveHelp
-@onready var status_label: Label = %StatusLabel
 @onready var live_status: Label = %LiveStatus
 @onready var live_send_timer: Timer = %LiveSendTimer
 @onready var import_button: Button = %ImportButton
 @onready var export_button: Button = %ExportButton
 @onready var import_dialog: FileDialog = %ImportDialog
 @onready var export_dialog: FileDialog = %ExportDialog
+@onready var update_banner: PanelContainer = %UpdateBanner
+@onready var update_request: HTTPRequest = %UpdateRequest
 
 @onready var appearance_tab: Control = $MarginContainer/Layout/MainColumn/Tabs/Appearance
 @onready var proportions_tab: Control = $MarginContainer/Layout/MainColumn/Tabs/Proportions
@@ -26,12 +28,15 @@ var _active_profile := ""
 var _pending_save_sequence := -1
 var _loading_profile := false
 var _character_available := false
+var _session_id := "%d-%d" % [Time.get_ticks_usec(), randi()]
 
 
 func _ready() -> void:
 	WindowFit.constrain_to_screen()
 	title_label.text = "BODYFORGE"
 	version_label.text = _release_version()
+	update_banner.visible = false
+	_check_for_updates()
 	_catalogue = BoneCatalogue.load_file("res://data/bone_catalogue.v1.json")
 	if not _catalogue.error_msg.is_empty():
 		_set_status("Catalogue error: " + _catalogue.error_msg, true)
@@ -43,10 +48,17 @@ func _ready() -> void:
 	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	if parsed is Dictionary:
 		_options = parsed
+	var anatomy_file := FileAccess.open("res://data/anatomy_catalogue.v1.json", FileAccess.READ)
+	var anatomy_catalogue: Dictionary = {}
+	if anatomy_file != null:
+		var anatomy_parsed: Variant = JSON.parse_string(anatomy_file.get_as_text())
+		if anatomy_parsed is Dictionary:
+			anatomy_catalogue = anatomy_parsed
 	appearance_tab.configure(_options)
-	proportions_tab.configure(_catalogue)
+	proportions_tab.configure(_catalogue, anatomy_catalogue)
 	appearance_tab.appearance_changed.connect(_on_appearance_changed)
 	proportions_tab.bone_changed.connect(_on_bone_changed)
+	proportions_tab.anatomy_changed.connect(_on_anatomy_changed)
 	settings_tab.settings_applied.connect(_on_settings_applied)
 	var detected: Dictionary = SettingsStore.detect_defaults()
 	var saved := SettingsStore.load()
@@ -73,6 +85,32 @@ func _release_version() -> String:
 	return ""
 
 
+func _check_for_updates() -> void:
+	var error := update_request.request(
+		RELEASE_UPDATE.API_URL,
+		["Accept: application/vnd.github+json", "User-Agent: BodyForge/%s" % _release_version().trim_prefix("v")]
+	)
+	if error != OK:
+		update_banner.visible = false
+
+
+func _on_update_request_completed(
+	result: int,
+	response_code: int,
+	_headers: PackedStringArray,
+	body: PackedByteArray
+) -> void:
+	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
+		update_banner.visible = false
+		return
+	var latest: String = RELEASE_UPDATE.latest_version(body)
+	update_banner.visible = RELEASE_UPDATE.is_newer(latest, _release_version())
+
+
+func _on_view_release_pressed() -> void:
+	OS.shell_open(RELEASE_UPDATE.RELEASE_URL)
+
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		_publish_session(false)
@@ -85,6 +123,11 @@ func _on_appearance_changed() -> void:
 
 
 func _on_bone_changed(_bone_name: String, _scale_vec: PackedFloat32Array) -> void:
+	if not _loading_profile:
+		_schedule_live_update()
+
+
+func _on_anatomy_changed(_slider_name: String, _value: float) -> void:
 	if not _loading_profile:
 		_schedule_live_update()
 
@@ -106,11 +149,13 @@ func _write_live_command(save_requested: bool) -> int:
 	_live_sequence = maxi(_live_sequence + 1, int(Time.get_unix_time_from_system() * 1000.0))
 	var token: Dictionary = proportions_tab.collect_token(_active_profile)
 	var command := {
-		"schemaVersion": 1,
+		"schemaVersion": ProportionToken.SCHEMA_VERSION,
 		"sequence": _live_sequence,
+		"sessionId": _session_id,
 		"character": _active_profile,
 		"appearance": appearance_tab.get_values(),
 		"bones": token.get("bones", {}),
+		"anatomy": token.get("anatomy", {}),
 		"save": save_requested,
 	}
 	if not LiveBridgeClient.write_command(token_dir, command):
@@ -144,10 +189,10 @@ func _poll_live_status() -> void:
 	_set_live_status("● Connected: " + _active_profile, true)
 	if _pending_save_sequence >= 0 and int(status.get("lastSavedSequence", -1)) >= _pending_save_sequence:
 		_pending_save_sequence = -1
-		_set_status("Character saved by Valheim. Proportions will also appear in the character menu.", false)
+		_set_status("Character saved by Valheim.", false)
 	elif _pending_save_sequence >= 0 and int(status.get("lastErrorSequence", -1)) >= _pending_save_sequence:
 		_pending_save_sequence = -1
-		_set_status("Valheim could not save the character: " + str(status.get("lastError", "unknown error")), true)
+		_set_status("Error: " + str(status.get("lastError", "unknown error")), true)
 	_update_save_ui()
 
 
@@ -202,7 +247,14 @@ func _save_proportions() -> bool:
 		return false
 	var token_path: String = token_dir.path_join(_active_profile + ".vhforges.json")
 	var data: Dictionary = proportions_tab.collect_token(_active_profile)
-	if not ProportionToken.save_file(token_path, _active_profile, data.get("bones", {})):
+	if not ProportionToken.save_file(
+		token_path,
+		_active_profile,
+		data.get("bones", {}),
+		true,
+		data.get("anatomy", {}),
+		bool(data.get("showBoneControls", false))
+	):
 		_set_status("Could not write %s." % token_path, true)
 		return false
 	return true
@@ -229,12 +281,14 @@ func _on_export_file_selected(path: String) -> void:
 	var output_path := path if path.get_extension().to_lower() == "json" else path + ".json"
 	var token: Dictionary = proportions_tab.collect_token(_active_profile)
 	var package := {
-		"schemaVersion": 1,
+		"schemaVersion": ProportionToken.SCHEMA_VERSION,
 		"format": "bodyforge-character",
 		"sourceCharacter": _active_profile,
 		"symmetry": proportions_tab.symmetry_enabled(),
+		"showBoneControls": proportions_tab.bone_controls_visible(),
 		"appearance": appearance_tab.get_values(),
 		"bones": token.get("bones", {}),
+		"anatomy": token.get("anatomy", {}),
 	}
 	var file := FileAccess.open(output_path, FileAccess.WRITE)
 	if file == null:
@@ -262,19 +316,22 @@ func _on_import_file_selected(path: String) -> void:
 		_set_status("Import failed: invalid JSON.", true)
 		return
 	var package: Dictionary = parsed
-	if int(package.get("schemaVersion", -1)) != 1 or str(package.get("format", "")) != "bodyforge-character":
+	if int(package.get("schemaVersion", -1)) not in [1, 2] or str(package.get("format", "")) != "bodyforge-character":
 		_set_status("Import failed: unsupported BodyForge character format.", true)
 		return
 	var appearance: Variant = package.get("appearance", {})
 	var bones: Variant = package.get("bones", {})
-	if not appearance is Dictionary or not bones is Dictionary or bones.is_empty():
+	var anatomy: Variant = package.get("anatomy", {})
+	if not appearance is Dictionary or not bones is Dictionary or not anatomy is Dictionary or bones.is_empty():
 		_set_status("Import failed: appearance or bone data is missing.", true)
 		return
 	_loading_profile = true
 	proportions_tab.set_symmetry_enabled(bool(package.get("symmetry", true)))
+	proportions_tab.set_bone_controls_visible(bool(package.get("showBoneControls", false)))
 	appearance_tab.load_values(appearance)
 	proportions_tab.reset_all()
 	proportions_tab.load_bones(bones)
+	proportions_tab.load_anatomy(anatomy)
 	_loading_profile = false
 	_schedule_live_update()
 	_set_status("Imported %s into the active character. Use Save character to persist it." % path.get_file(), false)
@@ -306,6 +363,7 @@ func _publish_session(active: bool) -> void:
 	LiveBridgeClient.write_session(token_dir, {
 		"schemaVersion": 1,
 		"active": active,
+		"sessionId": _session_id,
 		"character": _active_profile,
 		"heartbeat": int(Time.get_unix_time_from_system()),
 	})
@@ -324,11 +382,6 @@ func _update_save_ui() -> void:
 	save_character_button.disabled = not can_edit
 	import_button.disabled = not can_edit
 	export_button.disabled = not can_edit
-	save_help.text = (
-		"Saves the active Valheim profile and its BodyForge proportions."
-		if can_edit
-		else "Enter a Valheim world to select a character automatically."
-	)
 
 
 func _set_live_status(text: String, connected: bool) -> void:
@@ -340,9 +393,8 @@ func _set_live_status(text: String, connected: bool) -> void:
 
 
 func _set_status(text: String, is_error := false) -> void:
-	status_label.text = text
-	status_label.add_theme_color_override(
+	live_status.text = "● " + text
+	live_status.add_theme_color_override(
 		"font_color",
 		Color(0.9, 0.45, 0.45) if is_error else Color(0.75, 0.8, 0.75)
 	)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

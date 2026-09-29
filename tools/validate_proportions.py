@@ -25,8 +25,9 @@ def validate_doc(doc, path, catalogue):
     if not isinstance(doc, dict):
         return ["document must be a JSON object"], warnings
 
-    if doc.get("schemaVersion") != 1:
-        errors.append("schemaVersion missing or != 1")
+    schema_version = doc.get("schemaVersion")
+    if schema_version not in {1, 2}:
+        errors.append("schemaVersion missing or not supported (expected 1 or 2)")
     if "bones" not in doc or not isinstance(doc["bones"], dict):
         errors.append("bones must be an object")
         return errors, warnings
@@ -35,9 +36,30 @@ def validate_doc(doc, path, catalogue):
         if not isinstance(doc["character"], str) or not doc["character"].strip():
             errors.append("character must be a non-empty string")
 
-    if "unknown" not in doc and any(k not in {"schemaVersion", "character", "bones"}
-                                   for k in doc):
+    if "unknown" not in doc and any(k not in {"schemaVersion", "character", "bones", "anatomy", "editorState"}
+                                    for k in doc):
         warnings.append("top-level keys beyond schema ignored")
+
+    editor_state = doc.get("editorState", {})
+    if not isinstance(editor_state, dict):
+        errors.append("editorState must be an object")
+    else:
+        for extra in set(editor_state) - {"showBoneControls"}:
+            warnings.append(f"editorState has unknown field {extra!r}")
+        if "showBoneControls" in editor_state and not isinstance(editor_state["showBoneControls"], bool):
+            errors.append("editorState.showBoneControls must be a boolean")
+
+    anatomy = doc.get("anatomy", {})
+    if schema_version == 1 and "anatomy" in doc:
+        errors.append("anatomy requires schemaVersion 2")
+    if not isinstance(anatomy, dict):
+        errors.append("anatomy must be an object")
+    else:
+        for name, value in anatomy.items():
+            if not isinstance(name, str) or not (1 <= len(name) <= 64):
+                errors.append(f"anatomy key must be a 1..64 length string: {name!r}")
+            elif not _is_finite_number(value) or not -1 <= value <= 1:
+                errors.append(f"anatomy['{name}'] must be a finite number in [-1, 1]")
 
     # Catalogue alias map for name normalization
     lookup = {}

@@ -8,9 +8,11 @@ namespace BodyForge
 {
     public static class MultiplayerSync
     {
-        private const string ZdoKey = "BodyForge.Proportions.V1";
+        private const string ZdoKeyV1 = "BodyForge.Proportions.V1";
+        private const string ZdoKeyV2 = "BodyForge.Proportions.V2";
         private const int MaxPayloadBytes = 16384;
         private const int MaxBones = 128;
+        private const int MaxAnatomySliders = 64;
         private const float MinScale = 0.05f;
         private const float MaxScale = 10f;
         private const double PollSeconds = 0.25;
@@ -35,16 +37,28 @@ namespace BodyForge
 
         public static void PublishLocal(ProportionConfig config)
         {
-            string payload = Serialize(config);
+            string legacyPayload = Serialize(config, false);
+            string payload = Serialize(config, true);
             foreach (VisEquipment equipment in VisEquipment.Instances)
             {
                 if (equipment == null || !equipment.m_isPlayer) continue;
                 ZNetView view = GetView(equipment);
                 if (view == null || !view.IsValid() || !view.IsOwner()) continue;
                 ZDO zdo = view.GetZDO();
-                if (zdo == null || zdo.GetString(ZdoKey, "") == payload) continue;
-                zdo.Set(ZdoKey, payload);
-                BodyForgePlugin.LogInfo($"published multiplayer proportions ({config?.Bones?.Count ?? 0} bones)");
+                if (zdo == null) continue;
+                bool changed = false;
+                if (zdo.GetString(ZdoKeyV1, "") != legacyPayload)
+                {
+                    zdo.Set(ZdoKeyV1, legacyPayload);
+                    changed = true;
+                }
+                if (zdo.GetString(ZdoKeyV2, "") != payload)
+                {
+                    zdo.Set(ZdoKeyV2, payload);
+                    changed = true;
+                }
+                if (changed)
+                    BodyForgePlugin.LogInfo($"published multiplayer proportions ({config?.Bones?.Count ?? 0} bones, {config?.Anatomy?.Count ?? 0} anatomy sliders)");
             }
         }
 
@@ -52,7 +66,8 @@ namespace BodyForge
         {
             ZDO zdo = view.GetZDO();
             if (zdo == null) return;
-            string payload = zdo.GetString(ZdoKey, "");
+            string payload = zdo.GetString(ZdoKeyV2, "");
+            if (string.IsNullOrEmpty(payload)) payload = zdo.GetString(ZdoKeyV1, "");
             if (string.IsNullOrEmpty(payload)) return;
 
             int id = equipment.GetInstanceID();
@@ -63,9 +78,8 @@ namespace BodyForge
             {
                 ProportionConfig config = Parse(payload);
                 ResetPreviouslyApplied(equipment, id);
-                if (config.Bones.Count == 0) return;
                 BoneScalerPatch.ApplyRemote(equipment, config);
-                AppliedBones[id] = new HashSet<string>(config.Bones.Keys);
+                if (config.Bones.Count > 0) AppliedBones[id] = new HashSet<string>(config.Bones.Keys);
             }
             catch (Exception e)
             {
@@ -83,6 +97,8 @@ namespace BodyForge
             ProportionConfig config = ProportionConfig.LoadJson(payload);
             if (config.Bones.Count > MaxBones)
                 throw new FormatException("too many bones");
+            if (config.Anatomy.Count > MaxAnatomySliders)
+                throw new FormatException("too many anatomy sliders");
             foreach (KeyValuePair<string, ProportionConfig.BoneSpec> entry in config.Bones)
             {
                 if (entry.Key.Length == 0 || entry.Key.Length > 64)
@@ -95,14 +111,21 @@ namespace BodyForge
                     scale[i] = Mathf.Clamp(scale[i], MinScale, MaxScale);
                 }
             }
+            foreach (KeyValuePair<string, float> entry in config.Anatomy)
+            {
+                if (entry.Key.Length == 0 || entry.Key.Length > 64)
+                    throw new FormatException("invalid anatomy slider name");
+                if (float.IsNaN(entry.Value) || float.IsInfinity(entry.Value))
+                    throw new FormatException("non-finite anatomy value");
+            }
             return config;
         }
 
-        private static string Serialize(ProportionConfig config)
+        private static string Serialize(ProportionConfig config, bool includeAnatomy)
         {
             MiniJson.Node root = MiniJson.Node.MakeObject();
             root.Object["protocol"] = MiniJson.Node.MakeNumber(1);
-            root.Object["schemaVersion"] = MiniJson.Node.MakeNumber(1);
+            root.Object["schemaVersion"] = MiniJson.Node.MakeNumber(includeAnatomy ? 2 : 1);
             MiniJson.Node bones = MiniJson.Node.MakeObject();
             if (config?.Bones != null)
             {
@@ -118,6 +141,13 @@ namespace BodyForge
                 }
             }
             root.Object["bones"] = bones;
+            if (includeAnatomy)
+            {
+                MiniJson.Node anatomy = MiniJson.Node.MakeObject();
+                foreach (KeyValuePair<string, float> entry in config.Anatomy)
+                    anatomy.Object[entry.Key] = MiniJson.Node.MakeNumber(entry.Value);
+                root.Object["anatomy"] = anatomy;
+            }
             return MiniJson.Serialize(root);
         }
 

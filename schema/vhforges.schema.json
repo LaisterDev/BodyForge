@@ -2,14 +2,14 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://bodyforge.example.org/schema/vhforges.schema.json",
   "title": "BodyForge character proportions",
-  "description": "Format of the <char>.vhforges.json file applied at runtime by the BodyForge BepInEx plugin to each bone transform of the character skeleton (m_bodyModel.bones, VisEquipment).",
+  "description": "Format of the <char>.vhforges.json file applied at runtime by the BodyForge BepInEx plugin. Schema 1 contains bone scales; schema 2 also supports neutral-based anatomical sliders.",
   "type": "object",
   "required": ["schemaVersion", "bones"],
   "additionalProperties": false,
   "properties": {
     "schemaVersion": {
-      "const": 1,
-      "description": "Schema version. Bumping it breaks backward-compatible reading."
+      "enum": [1, 2],
+      "description": "Schema 1 remains readable. Schema 2 adds the optional anatomy object."
     },
     "character": {
       "type": "string",
@@ -41,6 +41,32 @@
         }
       },
       "description": "Map of bone name -> local transform (final scale applied to Transform.localScale). Bones not listed are left untouched."
+    },
+    "anatomy": {
+      "type": "object",
+      "default": {},
+      "patternProperties": {
+        "^[A-Za-z][A-Za-z0-9_-]{0,63}$": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": false,
+      "description": "Semantic anatomical slider values. Zero is always the exact vanilla body. The active model profile maps values to its own anatomy; equipment uses the resulting shared deformation field."
+    },
+    "editorState": {
+      "type": "object",
+      "default": {},
+      "additionalProperties": false,
+      "properties": {
+        "showBoneControls": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the editor displays the optional advanced bone controls. This does not affect the applied bone values."
+        }
+      },
+      "description": "Optional editor-only presentation state ignored by the runtime plugin."
     }
   }
 }

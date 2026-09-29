@@ -20,6 +20,17 @@ namespace BodyForge
 
         public int SchemaVersion;
         public readonly Dictionary<string, BoneSpec> Bones = new Dictionary<string, BoneSpec>();
+        public readonly Dictionary<string, float> Anatomy = new Dictionary<string, float>();
+
+        public bool HasAnatomyChanges
+        {
+            get
+            {
+                foreach (float value in Anatomy.Values)
+                    if (Mathf.Abs(value) > 0.0001f) return true;
+                return false;
+            }
+        }
 
         public static ProportionConfig Current { get; private set; }
 
@@ -105,10 +116,10 @@ namespace BodyForge
             ProportionConfig cfg = new ProportionConfig();
             MiniJson.Node ver = root.Get("schemaVersion");
             cfg.SchemaVersion = ver != null ? (int)ver.AsNumber(-1) : -1;
-            if (cfg.SchemaVersion != 1)
+            if (cfg.SchemaVersion != 1 && cfg.SchemaVersion != 2)
             {
                 throw new FormatException("unsupported schemaVersion " + cfg.SchemaVersion +
-                                          " (expected 1)");
+                                          " (expected 1 or 2)");
             }
             MiniJson.Node bones = root.Get("bones");
             if (bones == null || bones.Type != MiniJson.NodeType.Object)
@@ -127,6 +138,22 @@ namespace BodyForge
                 float sy = (float)scale.Array[1].AsNumber(1);
                 float sz = (float)scale.Array[2].AsNumber(1);
                 cfg.Bones[boneName] = new BoneSpec { Enabled = true, Scale = new[] { sx, sy, sz } };
+            }
+            if (cfg.SchemaVersion >= 2)
+            {
+                MiniJson.Node anatomy = root.Get("anatomy");
+                if (anatomy != null && anatomy.Type != MiniJson.NodeType.Object)
+                    throw new FormatException("'anatomy' must be an object");
+                if (anatomy != null)
+                    foreach (KeyValuePair<string, MiniJson.Node> entry in anatomy.Object)
+                    {
+                        if (entry.Value == null || entry.Value.Type != MiniJson.NodeType.Number)
+                            throw new FormatException("invalid anatomy value for '" + entry.Key + "'");
+                        double value = entry.Value.AsNumber(double.NaN);
+                        if (double.IsNaN(value) || double.IsInfinity(value))
+                            throw new FormatException("invalid anatomy value for '" + entry.Key + "'");
+                        cfg.Anatomy[entry.Key] = Mathf.Clamp((float)value, -1f, 1f);
+                    }
             }
             return cfg;
         }

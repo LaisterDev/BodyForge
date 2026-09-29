@@ -1,12 +1,15 @@
 class_name ProportionToken
 extends RefCounted
 
-const SCHEMA_VERSION := 1
+const SCHEMA_VERSION := 2
 const DEFAULT_SCALE := [1.0, 1.0, 1.0]
 
 var error_msg := ""
+var schema_version := 1
 var character := ""
 var bones := {}
+var anatomy := {}
+var show_bone_controls := false
 
 
 static func load_file(path: String) -> ProportionToken:
@@ -21,15 +24,31 @@ static func load_file(path: String) -> ProportionToken:
 	if not (data is Dictionary):
 		t.error_msg = "invalid JSON in %s" % path
 		return t
+	t.schema_version = int(data.get("schemaVersion", 1))
+	if t.schema_version != 1 and t.schema_version != 2:
+		t.error_msg = "unsupported schemaVersion %d" % t.schema_version
+		return t
 	t.character = str(data.get("character", ""))
 	var b: Dictionary = data.get("bones", {})
 	for key: String in b:
 		var entry: Dictionary = b[key]
 		t.bones[key] = {"scale": Array(entry.get("scale", DEFAULT_SCALE))}
+	var anatomy_data: Dictionary = data.get("anatomy", {}) if t.schema_version >= 2 else {}
+	for key: String in anatomy_data:
+		t.anatomy[key] = clampf(float(anatomy_data[key]), -1.0, 1.0)
+	var editor_state: Dictionary = data.get("editorState", {})
+	t.show_bone_controls = bool(editor_state.get("showBoneControls", false))
 	return t
 
 
-static func save_file(path: String, profile_name: String, bone_values: Dictionary, make_backup: bool = true) -> bool:
+static func save_file(
+	path: String,
+	profile_name: String,
+	bone_values: Dictionary,
+	make_backup: bool = true,
+	anatomy_values: Dictionary = {},
+	show_bone_controls: bool = false
+) -> bool:
 	if bone_values.is_empty():
 		return false
 	var lines: PackedStringArray = []
@@ -45,10 +64,18 @@ static func save_file(path: String, profile_name: String, bone_values: Dictionar
 		]
 		lines.append("    " + line)
 	var body := ",\n".join(lines)
-	var text := "{\n  \"schemaVersion\": %d,\n  \"character\": \"%s\",\n  \"bones\": {\n%s\n  }\n}\n" % [
+	var anatomy_lines: PackedStringArray = []
+	var anatomy_names: Array = anatomy_values.keys()
+	anatomy_names.sort()
+	for key: String in anatomy_names:
+		anatomy_lines.append("    \"%s\": %.4f" % [_escape(key), clampf(float(anatomy_values[key]), -1.0, 1.0)])
+	var anatomy_body := ",\n".join(anatomy_lines)
+	var text := "{\n  \"schemaVersion\": %d,\n  \"character\": \"%s\",\n  \"bones\": {\n%s\n  },\n  \"anatomy\": {\n%s\n  },\n  \"editorState\": {\n    \"showBoneControls\": %s\n  }\n}\n" % [
 		SCHEMA_VERSION,
 		_escape(profile_name),
 		body,
+		anatomy_body,
+		"true" if show_bone_controls else "false",
 	]
 	var f := FileAccess.open(path, FileAccess.WRITE)
 	if f == null:

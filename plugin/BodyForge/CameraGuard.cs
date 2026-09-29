@@ -7,7 +7,17 @@ namespace BodyForge
     {
         private static bool _locked;
 
-        public static bool ShouldLock => LiveBridge.IsEditorActive && Menu.IsVisible();
+        public static bool ShouldLock
+        {
+            get
+            {
+                bool editorActive = LiveBridge.IsEditorActive;
+#if BODYFORGE_DEV
+                editorActive = editorActive || AnatomyCalibration.Enabled;
+#endif
+                return editorActive && Menu.IsVisible();
+            }
+        }
 
         public static void UpdateLog(bool locked)
         {

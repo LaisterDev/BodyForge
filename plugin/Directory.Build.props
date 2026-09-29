@@ -10,9 +10,9 @@
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <Version>0.1.0</Version>
+    <Version>0.5.0</Version>
     <Product>BodyForge</Product>
-    <RepositoryUrl>https://github.com/sergiovalente/BodyForge</RepositoryUrl>
+    <RepositoryUrl>https://github.com/LaisterDev/BodyForge</RepositoryUrl>
   </PropertyGroup>
 
   <!-- Path resolution. Override any of these with -p:ValheimManaged=/path etc. -->

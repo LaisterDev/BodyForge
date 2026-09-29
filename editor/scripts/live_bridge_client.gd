@@ -4,6 +4,8 @@ extends RefCounted
 const COMMAND_FILE := "live-command.json"
 const STATUS_FILE := "live-status.json"
 const SESSION_FILE := "live-session.json"
+const DEV_COMMAND_FILE := "live-dev-command.json"
+const DEV_CALIBRATION_FILE := "anatomy-calibration.saved.json"
 
 
 static func write_command(folder: String, command: Dictionary) -> bool:
@@ -12,6 +14,14 @@ static func write_command(folder: String, command: Dictionary) -> bool:
 
 static func write_session(folder: String, session: Dictionary) -> bool:
 	return _write_json(folder, SESSION_FILE, session)
+
+
+static func write_dev_command(folder: String, command: Dictionary) -> bool:
+	return _write_json(folder, DEV_COMMAND_FILE, command)
+
+
+static func write_dev_calibration(folder: String, profiles: Dictionary) -> bool:
+	return _write_json(folder, DEV_CALIBRATION_FILE, profiles)
 
 
 static func _write_json(folder: String, filename: String, data: Dictionary) -> bool:

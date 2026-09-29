@@ -10,6 +10,11 @@ func _run() -> void:
 	root.add_child(main)
 	await process_frame
 	var tabs: TabContainer = main.get_node("MarginContainer/Layout/MainColumn/Tabs")
+	var header: PanelContainer = main.get_node("MarginContainer/Layout/MainColumn/Header")
+	var header_width := header.get_combined_minimum_size().x
+	main._set_status("A deliberately long save status must never expand the fixed editor layout horizontally.", false)
+	await process_frame
+	_check(is_equal_approx(header.get_combined_minimum_size().x, header_width), "Header width is stable across status messages")
 	var model_options: OptionButton = main.get_node("MarginContainer/Layout/MainColumn/Tabs/Appearance/FormCard/Grid/ModelOpts")
 	_check(not tabs.is_tab_disabled(0), "Appearance remains selectable")
 	_check(not tabs.is_tab_disabled(1), "Proportions remains selectable")

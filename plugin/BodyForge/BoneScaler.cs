@@ -32,8 +32,16 @@ namespace BodyForge
             ZNetView nview = AccessTools.Field(typeof(VisEquipment), "m_nview").GetValue(ve) as ZNetView;
             if (nview == null || !nview.IsOwner()) return;
 
+#if BODYFORGE_DEV
+            AnatomyMeshInventory.Capture(ve);
+#endif
             ProportionConfig cfg = ProportionConfig.Reload();
-            if (cfg == null || cfg.Bones == null || cfg.Bones.Count == 0) return;
+            if (cfg == null) return;
+            if (cfg.Bones.Count == 0 && !cfg.HasAnatomyChanges)
+            {
+                AnatomyDeformer.RememberAndApply(ve, cfg);
+                return;
+            }
 
             ApplyToBoneMap(ve, cfg, true);
             MultiplayerSync.PublishLocal(cfg);
@@ -80,6 +88,7 @@ namespace BodyForge
                 float[] sc = kv.Value.Scale;
                 bone.localScale = new Vector3(sc[0], sc[1], sc[2]);
             }
+            AnatomyDeformer.RememberAndApply(ve, cfg);
             return true;
         }
     }

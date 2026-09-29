@@ -23,6 +23,8 @@ namespace BodyForge
         private static bool _editorActive;
         private static long _editorHeartbeat;
         private static string _editorCharacter = "";
+        private static string _editorSessionId = "";
+        private static bool _hasAppearancePreview;
 
         private static string CommandPath => Path.Combine(ProportionConfig.TokenFolder, "live-command.json");
         private static string StatusPath => Path.Combine(ProportionConfig.TokenFolder, "live-status.json");
@@ -46,6 +48,7 @@ namespace BodyForge
             {
                 Directory.CreateDirectory(ProportionConfig.TokenFolder);
                 ReadSession();
+                RestoreAppearanceAfterEditorExit();
                 WriteStatus();
                 if (!File.Exists(CommandPath)) return;
                 long writeTicks = File.GetLastWriteTimeUtc(CommandPath).Ticks;
@@ -70,13 +73,15 @@ namespace BodyForge
             _editorActive = root.Get("active")?.AsBool(false) ?? false;
             _editorHeartbeat = (long)(root.Get("heartbeat")?.AsNumber(0) ?? 0);
             _editorCharacter = root.Get("character")?.AsString("") ?? "";
+            _editorSessionId = root.Get("sessionId")?.AsString("") ?? "";
         }
 
         private static void Apply(string text)
         {
             MiniJson.Node root = MiniJson.Parse(text);
-            if ((int)(root.Get("schemaVersion")?.AsNumber(-1) ?? -1) != 1)
-                throw new FormatException("live command schemaVersion must be 1");
+            int schemaVersion = (int)(root.Get("schemaVersion")?.AsNumber(-1) ?? -1);
+            if (schemaVersion != 1 && schemaVersion != 2)
+                throw new FormatException("live command schemaVersion must be 1 or 2");
             long sequence = (long)(root.Get("sequence")?.AsNumber(-1) ?? -1);
             if (sequence <= _lastSequence) return;
 
@@ -85,15 +90,20 @@ namespace BodyForge
             if (profile == null || player == null) return;
             string target = root.Get("character")?.AsString("") ?? "";
             if (!string.Equals(target, profile.GetFilename(), StringComparison.OrdinalIgnoreCase)) return;
+            string sessionId = root.Get("sessionId")?.AsString("") ?? "";
+            if (string.IsNullOrEmpty(sessionId) || sessionId != _editorSessionId || !IsEditorActive) return;
 
             MiniJson.Node appearance = root.Get("appearance");
             if (appearance != null && appearance.Type == MiniJson.NodeType.Object)
             {
+                AppearancePreviewGuard.BeginPreview(player, target);
                 player.SetPlayerModel((int)(appearance.Get("model")?.AsNumber(player.GetPlayerModel()) ?? player.GetPlayerModel()));
                 player.SetHair(appearance.Get("hair")?.AsString(player.GetHair()) ?? player.GetHair());
                 player.SetBeard(appearance.Get("beard")?.AsString(player.GetBeard()) ?? player.GetBeard());
                 player.SetSkinColor(ReadVector(appearance.Get("skin"), Vector3.one));
                 player.SetHairColor(ReadVector(appearance.Get("haircolor"), player.GetHairColor()));
+                AppearancePreviewGuard.UpdatePreview(player);
+                _hasAppearancePreview = true;
             }
 
             ProportionConfig proportions = ProportionConfig.LoadJson(text);
@@ -104,8 +114,10 @@ namespace BodyForge
             {
                 try
                 {
+                    AppearancePreviewGuard.BeginCommit();
                     profile.SavePlayerData(player);
                     if (!profile.Save()) throw new IOException("Valheim profile save returned false");
+                    AppearancePreviewGuard.AcceptCommit();
                     _lastSavedSequence = sequence;
                     _lastError = "";
                     BodyForgePlugin.LogInfo($"character {target} saved by live command {sequence}");
@@ -115,6 +127,10 @@ namespace BodyForge
                     _lastErrorSequence = sequence;
                     _lastError = e.Message;
                     BodyForgePlugin.LogError($"character {target} save failed: {e.Message}");
+                }
+                finally
+                {
+                    AppearancePreviewGuard.FinishCommit();
                 }
             }
             BodyForgePlugin.LogInfo($"live update {sequence} applied to {target}");
@@ -128,6 +144,17 @@ namespace BodyForge
                 (float)node.Array[0].AsNumber(fallback.x),
                 (float)node.Array[1].AsNumber(fallback.y),
                 (float)node.Array[2].AsNumber(fallback.z));
+        }
+
+        private static void RestoreAppearanceAfterEditorExit()
+        {
+            if (!_hasAppearancePreview || IsEditorActive) return;
+            Player player = Player.m_localPlayer;
+            PlayerProfile profile = Game.instance?.GetPlayerProfile();
+            if (player == null || profile == null) return;
+            if (AppearancePreviewGuard.CancelPreview(player, profile.GetFilename()))
+                BodyForgePlugin.LogInfo("unsaved appearance preview restored after editor closed");
+            _hasAppearancePreview = false;
         }
 
         private static void WriteStatus(bool force = false)
@@ -185,10 +212,30 @@ namespace BodyForge
         {
             MiniJson.Node array = MiniJson.Node.MakeArray();
             List<ItemDrop> items = ObjectDB.instance.GetAllItems(ItemDrop.ItemData.ItemType.Customization, category);
-            foreach (string name in items.Select(x => x.gameObject.name)
-                         .Where(x => !x.Contains("_")).Distinct().OrderBy(x => x, StringComparer.Ordinal))
-                array.Array.Add(MiniJson.Node.MakeString(name));
+            foreach (ItemDrop item in items.Where(x => x != null && !x.gameObject.name.Contains("_"))
+                         .GroupBy(x => x.gameObject.name).Select(x => x.First())
+                         .OrderBy(x => NaturalIndex(x.gameObject.name, category)))
+            {
+                string id = item.gameObject.name;
+                string key = item.m_itemData?.m_shared?.m_name ?? "";
+                string label = Localization.instance != null && !string.IsNullOrEmpty(key)
+                    ? Localization.instance.Localize(key) : "";
+                if (string.IsNullOrEmpty(label) || label == key || label.StartsWith("["))
+                    label = id.EndsWith("None", StringComparison.OrdinalIgnoreCase)
+                        ? "None" : category + " " + NaturalIndex(id, category);
+                MiniJson.Node option = MiniJson.Node.MakeObject();
+                option.Object["id"] = MiniJson.Node.MakeString(id);
+                option.Object["label"] = MiniJson.Node.MakeString(label);
+                array.Array.Add(option);
+            }
             return array;
+        }
+
+        private static int NaturalIndex(string id, string category)
+        {
+            if (id.EndsWith("None", StringComparison.OrdinalIgnoreCase)) return -1;
+            return int.TryParse(id.Substring(Math.Min(category.Length, id.Length)), out int index)
+                ? index : int.MaxValue;
         }
     }
 }

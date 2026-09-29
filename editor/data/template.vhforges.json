@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "character": "lst",
   "bones": {
     "Hips":         { "scale": [1.0, 1.0, 1.0] },
@@ -25,5 +25,9 @@
     "RightLeg":     { "scale": [1.0, 1.0, 1.0] },
     "RightFoot":    { "scale": [1.0, 1.0, 1.0] },
     "RightToeBase": { "scale": [1.0, 1.0, 1.0] }
+  },
+  "anatomy": {},
+  "editorState": {
+    "showBoneControls": false
   }
 }

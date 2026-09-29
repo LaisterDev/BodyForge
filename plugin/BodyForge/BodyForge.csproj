@@ -3,5 +3,13 @@
   <PropertyGroup>
     <AssemblyName>BodyForge</AssemblyName>
     <RootNamespace>BodyForge</RootNamespace>
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin-dev/**;obj-dev/**</DefaultItemExcludes>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(BodyForgeDev)' == 'true'">
+    <DefineConstants>$(DefineConstants);BODYFORGE_DEV</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="../../editor/dev/anatomy_calibration.json"
+                      LogicalName="BodyForge.anatomy_calibration.json" />
+  </ItemGroup>
 </Project>

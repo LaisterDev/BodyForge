@@ -16,6 +16,7 @@ func _run() -> void:
 	if FileAccess.get_sha256(ZIP) != metadata.bepInEx.sha256:
 		quit(1)
 	DirAccess.make_dir_recursive_absolute(TARGET)
+	DirAccess.make_dir_recursive_absolute(TARGET.path_join("valheim_Data"))
 	var setup := preload("res://scenes/first_run_setup.tscn").instantiate()
 	root.add_child(setup)
 	await process_frame
@@ -29,6 +30,14 @@ func _run() -> void:
 		quit(1)
 	setup._write_installer_state(TARGET)
 	if setup._installed_bepinex_version(TARGET) != metadata.bepInEx.coreMinimum:
+		quit(1)
+	setup.game_dir_edit.text = TARGET
+	setup._check_installation()
+	if not setup._compatible or not setup.consent_check.button_pressed or not setup.consent_check.disabled:
+		quit(1)
+	if setup.install_button.disabled or setup.third_party_info.mouse_filter != Control.MOUSE_FILTER_IGNORE:
+		quit(1)
+	if setup.linux_launch_row.visible != (OS.get_name() == "Linux"):
 		quit(1)
 	if not setup._version_at_least("5.4.24.0", metadata.bepInEx.coreMinimum):
 		quit(1)

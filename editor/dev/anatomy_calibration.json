@@ -1,0 +1,862 @@
+{
+	"0": {
+		"abdomen": {
+			"depthPosition": 0.02,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.134,
+			"strength": 0.1,
+			"verticalPosition": 0.614,
+			"verticalRange": 0.0449999999999999
+		},
+		"belly": {
+			"depthPosition": 0.7,
+			"depthRange": 0.17,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.136,
+			"strength": 0.05,
+			"verticalPosition": 0.62,
+			"verticalRange": 0.05
+		},
+		"body_depth": {
+			"depthPosition": 0.0,
+			"depthRange": 1.0,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.48,
+			"strength": 0.25,
+			"verticalPosition": 0.5,
+			"verticalRange": 0.55
+		},
+		"body_height": {
+			"depthPosition": 0.0,
+			"depthRange": 1.0,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.48,
+			"strength": 0.25,
+			"verticalPosition": 0.5,
+			"verticalRange": 0.55
+		},
+		"body_width": {
+			"depthPosition": 0.0,
+			"depthRange": 1.0,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.48,
+			"strength": 0.25,
+			"verticalPosition": 0.5,
+			"verticalRange": 0.55
+		},
+		"calves": {
+			"depthPosition": 0.4,
+			"depthRange": 0.4185,
+			"lateralPosition": 0.056,
+			"lateralRange": 0.06,
+			"strength": 0.5,
+			"verticalPosition": 0.17,
+			"verticalRange": 0.111
+		},
+		"cheeks": {
+			"depthPosition": 0.605,
+			"depthRange": 0.1075,
+			"lateralPosition": 0.0309999999999999,
+			"lateralRange": 0.028,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.913,
+			"verticalRange": 0.0249999999999999
+		},
+		"chest": {
+			"depthPosition": 0.5,
+			"depthRange": 0.32,
+			"depthRatio": 1.06,
+			"lateralPosition": 0.0600000000000001,
+			"lateralRange": 0.127,
+			"strength": 1.0,
+			"verticalPosition": 0.765,
+			"verticalRange": 0.05,
+			"widthRatio": 0.94
+		},
+		"chest_projection": {
+			"depthPosition": 0.5,
+			"depthRange": 0.32,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.124,
+			"strength": 0.05,
+			"verticalPosition": 0.765,
+			"verticalRange": 0.0660000000000001
+		},
+		"chin": {
+			"depthPosition": 0.79,
+			"depthRange": 0.079,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.0249999999999999,
+			"strength": 0.0149999999999999,
+			"verticalPosition": 0.88,
+			"verticalRange": 0.014
+		},
+		"chin_length": {
+			"depthPosition": 0.79,
+			"depthRange": 0.079,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.0349999999999999,
+			"strength": 0.0149999999999999,
+			"verticalPosition": 0.88,
+			"verticalRange": 0.014
+		},
+		"chin_width": {
+			"depthPosition": 0.79,
+			"depthRange": 0.079,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.0349999999999999,
+			"strength": 1.0,
+			"verticalPosition": 0.88,
+			"verticalRange": 0.014
+		},
+		"ears": {
+			"depthPosition": 0.203,
+			"depthRange": 0.0740000000000001,
+			"lateralPosition": 0.04,
+			"lateralRange": 0.012,
+			"strength": 1.0,
+			"verticalPosition": 0.929,
+			"verticalRange": 0.024
+		},
+		"eye_height": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0449999999999999,
+			"lateralPosition": 0.02,
+			"lateralRange": 0.014,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.94,
+			"verticalRange": 0.01
+		},
+		"eye_projection": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0449999999999999,
+			"lateralPosition": 0.02,
+			"lateralRange": 0.014,
+			"strength": 0.01,
+			"verticalPosition": 0.94,
+			"verticalRange": 0.01
+		},
+		"eye_spacing": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0449999999999999,
+			"lateralPosition": 0.02,
+			"lateralRange": 0.014,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.94,
+			"verticalRange": 0.01
+		},
+		"eyes": {
+			"depthPosition": 0.8,
+			"depthRange": 0.045,
+			"lateralPosition": 0.02,
+			"lateralRange": 0.014,
+			"strength": 0.25,
+			"verticalPosition": 0.938,
+			"verticalRange": 0.0069999999999999
+		},
+		"feet": {
+			"depthPosition": -0.168,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0569999999999999,
+			"lateralRange": 0.05,
+			"strength": 0.5,
+			"verticalPosition": 0.0169999999999999,
+			"verticalRange": 0.0369999999999999
+		},
+		"forearms": {
+			"depthPosition": -0.243,
+			"depthRange": 0.3,
+			"lateralPosition": 0.232,
+			"lateralRange": 0.097,
+			"strength": 0.5,
+			"verticalPosition": 0.628,
+			"verticalRange": 0.085
+		},
+		"forehead": {
+			"depthPosition": 0.45,
+			"depthRange": 0.275,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.07,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.955,
+			"verticalRange": 0.05
+		},
+		"glutes": {
+			"depthPosition": 0.734,
+			"depthRange": 0.2,
+			"lateralPosition": 0.069,
+			"lateralRange": 0.108,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.527,
+			"verticalRange": 0.0920000000000001
+		},
+		"hands": {
+			"depthPosition": -0.179,
+			"depthRange": 0.3985,
+			"lateralPosition": 0.314,
+			"lateralRange": 0.0720000000000001,
+			"strength": 0.25,
+			"verticalPosition": 0.502,
+			"verticalRange": 0.0800000000000001
+		},
+		"head": {
+			"depthPosition": 0.4,
+			"depthRange": 0.4,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.0600000000000001,
+			"strength": 0.25,
+			"verticalPosition": 0.932,
+			"verticalRange": 0.0720000000000001
+		},
+		"head_depth": {
+			"depthPosition": 0.1,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.09,
+			"strength": 0.25,
+			"verticalPosition": 0.928,
+			"verticalRange": 0.0800000000000001
+		},
+		"head_height": {
+			"depthPosition": 0.1,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.09,
+			"strength": 0.25,
+			"verticalPosition": 0.928,
+			"verticalRange": 0.0800000000000001
+		},
+		"head_width": {
+			"depthPosition": 0.1,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.09,
+			"strength": 0.25,
+			"verticalPosition": 0.928,
+			"verticalRange": 0.0800000000000001
+		},
+		"hips": {
+			"depthPosition": 0.0,
+			"depthRange": 0.5,
+			"innerRadius": 0.035,
+			"lateralPosition": 0.0720000000000001,
+			"lateralRange": 0.0900000000000001,
+			"outerRadius": 0.11,
+			"strength": 0.05,
+			"verticalPosition": 0.53,
+			"verticalRange": 0.0800000000000001
+		},
+		"jaw": {
+			"depthPosition": 0.567,
+			"depthRange": 0.125,
+			"lateralPosition": 0.0249999999999999,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.888,
+			"verticalRange": 0.0189999999999999
+		},
+		"jaw_width": {
+			"depthPosition": 0.558,
+			"depthRange": 0.191,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.05,
+			"strength": 0.5,
+			"verticalPosition": 0.895,
+			"verticalRange": 0.0249999999999999
+		},
+		"knees": {
+			"depthPosition": -0.08,
+			"depthRange": 0.225,
+			"lateralPosition": 0.056,
+			"lateralRange": 0.0449999999999999,
+			"strength": 1.0,
+			"verticalPosition": 0.303,
+			"verticalRange": 0.04
+		},
+		"leg_length": {
+			"depthPosition": 0.0,
+			"depthRange": 0.5,
+			"lateralPosition": 0.067,
+			"lateralRange": 0.075,
+			"strength": 1.0,
+			"verticalPosition": 0.25,
+			"verticalRange": 0.25
+		},
+		"mouth": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0595,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.901,
+			"verticalRange": 0.01
+		},
+		"mouth_height": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0600000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.901,
+			"verticalRange": 0.0129999999999999
+		},
+		"mouth_width": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0600000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.901,
+			"verticalRange": 0.01
+		},
+		"musculature": {
+			"depthPosition": 0.0,
+			"depthRange": 1.0,
+			"lateralPosition": 0.1,
+			"lateralRange": 0.25,
+			"strength": 0.25,
+			"verticalPosition": 0.55,
+			"verticalRange": 0.36
+		},
+		"neck": {
+			"depthPosition": 0.0,
+			"depthRange": 0.315,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.056,
+			"strength": 1.0,
+			"verticalPosition": 0.89,
+			"verticalRange": 0.048
+		},
+		"nose": {
+			"depthPosition": 0.9,
+			"depthRange": 0.0600000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.0149999999999999,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.92,
+			"verticalRange": 0.00800000000000001
+		},
+		"nose_height": {
+			"depthPosition": 0.9,
+			"depthRange": 0.0600000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.92,
+			"verticalRange": 0.0129999999999999
+		},
+		"nose_width": {
+			"depthPosition": 0.9,
+			"depthRange": 0.0600000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.92,
+			"verticalRange": 0.0129999999999999
+		},
+		"posture": {
+			"depthPosition": 0.0,
+			"depthRange": 1.0,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.22,
+			"strength": 0.25,
+			"verticalPosition": 0.55,
+			"verticalRange": 0.8
+		},
+		"shoulder_width": {
+			"depthPosition": -0.303,
+			"depthRange": 0.35,
+			"lateralPosition": 0.116,
+			"lateralRange": 0.0900000000000001,
+			"strength": 1.0,
+			"verticalPosition": 0.821,
+			"verticalRange": 0.0600000000000001
+		},
+		"shoulders": {
+			"depthPosition": -0.303,
+			"depthRange": 0.35,
+			"lateralPosition": 0.116,
+			"lateralRange": 0.0800000000000001,
+			"strength": 1.0,
+			"verticalPosition": 0.821,
+			"verticalRange": 0.0600000000000001
+		},
+		"thighs": {
+			"depthPosition": 0.0,
+			"depthRange": 0.466,
+			"innerRadius": 0.055,
+			"lateralPosition": 0.0629999999999999,
+			"lateralRange": 0.0700000000000001,
+			"strength": 0.5,
+			"verticalPosition": 0.38,
+			"verticalRange": 0.13
+		},
+		"upper_arms": {
+			"depthPosition": -0.29,
+			"depthRange": 0.375,
+			"lateralPosition": 0.168,
+			"lateralRange": 0.0700000000000001,
+			"strength": 1.0,
+			"verticalPosition": 0.743,
+			"verticalRange": 0.14
+		},
+		"upper_back": {
+			"depthPosition": 0.773,
+			"depthRange": 0.213,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.1,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.833,
+			"verticalRange": 0.079
+		},
+		"waist": {
+			"depthPosition": 0.0,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.16,
+			"strength": 1.0,
+			"verticalPosition": 0.662,
+			"verticalRange": 0.03
+		},
+		"weight": {
+			"depthPosition": 0.0,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.22,
+			"strength": 0.25,
+			"verticalPosition": 0.52,
+			"verticalRange": 0.43
+		}
+	},
+	"1": {
+		"abdomen": {
+			"depthPosition": 0.02,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.134,
+			"strength": 0.05,
+			"verticalPosition": 0.614,
+			"verticalRange": 0.0449999999999999
+		},
+		"belly": {
+			"depthPosition": 0.7,
+			"depthRange": 0.17,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.136,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.62,
+			"verticalRange": 0.05
+		},
+		"body_depth": {
+			"depthPosition": 0.0,
+			"depthRange": 1.0,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.48,
+			"strength": 0.25,
+			"verticalPosition": 0.5,
+			"verticalRange": 0.55
+		},
+		"body_height": {
+			"depthPosition": 0.0,
+			"depthRange": 1.0,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.48,
+			"strength": 0.25,
+			"verticalPosition": 0.5,
+			"verticalRange": 0.55
+		},
+		"body_width": {
+			"depthPosition": 0.0,
+			"depthRange": 1.0,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.48,
+			"strength": 0.25,
+			"verticalPosition": 0.5,
+			"verticalRange": 0.55
+		},
+		"calves": {
+			"depthPosition": 0.4,
+			"depthRange": 0.4185,
+			"lateralPosition": 0.056,
+			"lateralRange": 0.06,
+			"strength": 0.5,
+			"verticalPosition": 0.17,
+			"verticalRange": 0.111
+		},
+		"cheeks": {
+			"depthPosition": 0.605,
+			"depthRange": 0.1075,
+			"lateralPosition": 0.036,
+			"lateralRange": 0.02,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.913,
+			"verticalRange": 0.02
+		},
+		"chest": {
+			"depthPosition": 0.5,
+			"depthRange": 0.32,
+			"depthRatio": 1.06,
+			"lateralPosition": 0.05,
+			"lateralRange": 0.0549999999999999,
+			"strength": 1.0,
+			"verticalPosition": 0.765,
+			"verticalRange": 0.05,
+			"widthRatio": 0.94
+		},
+		"chest_projection": {
+			"depthPosition": 0.5,
+			"depthRange": 0.32,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.108,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.765,
+			"verticalRange": 0.056
+		},
+		"chin": {
+			"depthPosition": 0.789,
+			"depthRange": 0.0700000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.016,
+			"strength": 0.0149999999999999,
+			"verticalPosition": 0.88,
+			"verticalRange": 0.01
+		},
+		"chin_length": {
+			"depthPosition": 0.74,
+			"depthRange": 0.0700000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.0249999999999999,
+			"strength": 0.0149999999999999,
+			"verticalPosition": 0.88,
+			"verticalRange": 0.01
+		},
+		"chin_width": {
+			"depthPosition": 0.74,
+			"depthRange": 0.0700000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.0249999999999999,
+			"strength": 1.0,
+			"verticalPosition": 0.88,
+			"verticalRange": 0.01
+		},
+		"ears": {
+			"depthPosition": 0.1,
+			"depthRange": 0.062,
+			"lateralPosition": 0.0369999999999999,
+			"lateralRange": 0.012,
+			"strength": 1.0,
+			"verticalPosition": 0.934,
+			"verticalRange": 0.0149999999999999
+		},
+		"eye_height": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0449999999999999,
+			"lateralPosition": 0.02,
+			"lateralRange": 0.014,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.94,
+			"verticalRange": 0.01
+		},
+		"eye_projection": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0449999999999999,
+			"lateralPosition": 0.02,
+			"lateralRange": 0.014,
+			"strength": 0.01,
+			"verticalPosition": 0.94,
+			"verticalRange": 0.01
+		},
+		"eye_spacing": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0449999999999999,
+			"lateralPosition": 0.02,
+			"lateralRange": 0.014,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.94,
+			"verticalRange": 0.01
+		},
+		"eyes": {
+			"depthPosition": 0.8,
+			"depthRange": 0.045,
+			"lateralPosition": 0.02,
+			"lateralRange": 0.014,
+			"strength": 0.25,
+			"verticalPosition": 0.938,
+			"verticalRange": 0.0069999999999999
+		},
+		"feet": {
+			"depthPosition": -0.168,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0569999999999999,
+			"lateralRange": 0.05,
+			"strength": 0.5,
+			"verticalPosition": 0.0169999999999999,
+			"verticalRange": 0.0369999999999999
+		},
+		"forearms": {
+			"depthPosition": -0.339,
+			"depthRange": 0.3,
+			"lateralPosition": 0.219,
+			"lateralRange": 0.092,
+			"strength": 1.0,
+			"verticalPosition": 0.605,
+			"verticalRange": 0.0800000000000001
+		},
+		"forehead": {
+			"depthPosition": 0.45,
+			"depthRange": 0.275,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.07,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.955,
+			"verticalRange": 0.05
+		},
+		"glutes": {
+			"depthPosition": 0.792,
+			"depthRange": 0.2,
+			"lateralPosition": 0.0549999999999999,
+			"lateralRange": 0.108,
+			"strength": 0.05,
+			"verticalPosition": 0.527,
+			"verticalRange": 0.0920000000000001
+		},
+		"hands": {
+			"depthPosition": -0.179,
+			"depthRange": 0.3985,
+			"lateralPosition": 0.287,
+			"lateralRange": 0.0720000000000001,
+			"strength": 0.25,
+			"verticalPosition": 0.502,
+			"verticalRange": 0.065
+		},
+		"head": {
+			"depthPosition": 0.326,
+			"depthRange": 0.4,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.05,
+			"strength": 0.25,
+			"verticalPosition": 0.94,
+			"verticalRange": 0.0600000000000001
+		},
+		"head_depth": {
+			"depthPosition": 0.1,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.09,
+			"strength": 0.25,
+			"verticalPosition": 0.928,
+			"verticalRange": 0.075
+		},
+		"head_height": {
+			"depthPosition": 0.1,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.09,
+			"strength": 0.25,
+			"verticalPosition": 0.928,
+			"verticalRange": 0.075
+		},
+		"head_width": {
+			"depthPosition": 0.1,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.09,
+			"strength": 0.25,
+			"verticalPosition": 0.928,
+			"verticalRange": 0.075
+		},
+		"hips": {
+			"depthPosition": 0.0,
+			"depthRange": 0.5,
+			"innerRadius": 0.035,
+			"lateralPosition": 0.0720000000000001,
+			"lateralRange": 0.0900000000000001,
+			"outerRadius": 0.11,
+			"strength": 0.05,
+			"verticalPosition": 0.53,
+			"verticalRange": 0.0800000000000001
+		},
+		"jaw": {
+			"depthPosition": 0.567,
+			"depthRange": 0.125,
+			"lateralPosition": 0.0249999999999999,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.888,
+			"verticalRange": 0.016
+		},
+		"jaw_width": {
+			"depthPosition": 0.558,
+			"depthRange": 0.191,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.05,
+			"strength": 0.5,
+			"verticalPosition": 0.895,
+			"verticalRange": 0.0249999999999999
+		},
+		"knees": {
+			"depthPosition": 0.0,
+			"depthRange": 0.225,
+			"lateralPosition": 0.056,
+			"lateralRange": 0.0449999999999999,
+			"strength": 1.0,
+			"verticalPosition": 0.303,
+			"verticalRange": 0.03
+		},
+		"leg_length": {
+			"depthPosition": 0.0,
+			"depthRange": 0.5,
+			"lateralPosition": 0.067,
+			"lateralRange": 0.075,
+			"strength": 1.0,
+			"verticalPosition": 0.25,
+			"verticalRange": 0.25
+		},
+		"mouth": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0595,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.901,
+			"verticalRange": 0.01
+		},
+		"mouth_height": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0600000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.901,
+			"verticalRange": 0.0129999999999999
+		},
+		"mouth_width": {
+			"depthPosition": 0.8,
+			"depthRange": 0.0600000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.901,
+			"verticalRange": 0.01
+		},
+		"musculature": {
+			"depthPosition": 0.0,
+			"depthRange": 1.0,
+			"lateralPosition": 0.1,
+			"lateralRange": 0.25,
+			"strength": 0.25,
+			"verticalPosition": 0.55,
+			"verticalRange": 0.36
+		},
+		"neck": {
+			"depthPosition": 0.0,
+			"depthRange": 0.315,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.056,
+			"strength": 0.5,
+			"verticalPosition": 0.89,
+			"verticalRange": 0.048
+		},
+		"nose": {
+			"depthPosition": 0.9,
+			"depthRange": 0.0600000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.0149999999999999,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.92,
+			"verticalRange": 0.00800000000000001
+		},
+		"nose_height": {
+			"depthPosition": 0.9,
+			"depthRange": 0.0600000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.92,
+			"verticalRange": 0.0129999999999999
+		},
+		"nose_width": {
+			"depthPosition": 0.9,
+			"depthRange": 0.0600000000000001,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.02,
+			"strength": 1.0,
+			"verticalPosition": 0.92,
+			"verticalRange": 0.0129999999999999
+		},
+		"posture": {
+			"depthPosition": 0.0,
+			"depthRange": 1.0,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.22,
+			"strength": 0.25,
+			"verticalPosition": 0.55,
+			"verticalRange": 0.8
+		},
+		"shoulder_width": {
+			"depthPosition": -0.303,
+			"depthRange": 0.35,
+			"lateralPosition": 0.0800000000000001,
+			"lateralRange": 0.0900000000000001,
+			"strength": 1.0,
+			"verticalPosition": 0.821,
+			"verticalRange": 0.052
+		},
+		"shoulders": {
+			"depthPosition": -0.303,
+			"depthRange": 0.35,
+			"lateralPosition": 0.0800000000000001,
+			"lateralRange": 0.0700000000000001,
+			"strength": 1.0,
+			"verticalPosition": 0.821,
+			"verticalRange": 0.052
+		},
+		"thighs": {
+			"depthPosition": 0.0,
+			"depthRange": 0.466,
+			"innerRadius": 0.055,
+			"lateralPosition": 0.0629999999999999,
+			"lateralRange": 0.0600000000000001,
+			"strength": 0.5,
+			"verticalPosition": 0.38,
+			"verticalRange": 0.13
+		},
+		"upper_arms": {
+			"depthPosition": -0.29,
+			"depthRange": 0.375,
+			"lateralPosition": 0.143,
+			"lateralRange": 0.0640000000000001,
+			"strength": 0.5,
+			"verticalPosition": 0.761,
+			"verticalRange": 0.124
+		},
+		"upper_back": {
+			"depthPosition": 0.773,
+			"depthRange": 0.213,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.1,
+			"strength": 0.0249999999999999,
+			"verticalPosition": 0.833,
+			"verticalRange": 0.079
+		},
+		"waist": {
+			"depthPosition": 0.0,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.15,
+			"strength": 1.0,
+			"verticalPosition": 0.662,
+			"verticalRange": 0.02
+		},
+		"weight": {
+			"depthPosition": 0.0,
+			"depthRange": 0.5,
+			"lateralPosition": 0.0,
+			"lateralRange": 0.22,
+			"strength": 0.25,
+			"verticalPosition": 0.52,
+			"verticalRange": 0.43
+		}
+	}
+}

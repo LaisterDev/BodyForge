@@ -22,64 +22,76 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Body proportions"
 
-[node name="Description" type="Label" parent="Header/Copy"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.58, 0.61, 0.67, 1)
-text = "Drag a slider or type an exact multiplier. 1.00× is the original size."
-
 [node name="Count" type="HBoxContainer" parent="Header"]
 layout_mode = 2
 theme_override_constants/separation = 12
-
-[node name="ToggleStack" type="VBoxContainer" parent="Header/Count"]
-layout_mode = 2
-
-[node name="SymmetryToggle" type="CheckButton" parent="Header/Count/ToggleStack"]
-unique_name_in_owner = true
-layout_mode = 2
-button_pressed = true
-text = "Symmetry"
-tooltip_text = "Use one control for both left and right bones"
-
-[node name="GroupLabel" type="Label" parent="Header/Count/ToggleStack"]
-unique_name_in_owner = true
-layout_mode = 2
-horizontal_alignment = 2
-text = "53 bones"
 
 [node name="ResetAll" type="Button" parent="Header/Count"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Reset all"
 
-[node name="TokenCard" type="PanelContainer" parent="."]
-layout_mode = 2
-
-[node name="TokenBox" type="VBoxContainer" parent="TokenCard"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="TokenCard/TokenBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.58, 0.61, 0.67, 1)
-text = "Proportions file"
-
-[node name="TokenPathLabel" type="Label" parent="TokenCard/TokenBox"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Select a character first"
-text_overrun_behavior = 3
-autowrap_mode = 2
-
 [node name="Scroll" type="ScrollContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="BoneList" type="VBoxContainer" parent="Scroll"]
+[node name="Content" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="AnatomyHeader" type="Label" parent="Scroll/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "Anatomy"
+
+[node name="AnatomyList" type="VBoxContainer" parent="Scroll/Content"]
 unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BonesHeader" type="HBoxContainer" parent="Scroll/Content"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Scroll/Content/BonesHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 17
+text = "Advanced skeleton"
+
+[node name="BonesVisibleToggle" type="CheckButton" parent="Scroll/Content/BonesHeader"]
+layout_mode = 2
+text = "Show bone controls"
+
+[node name="BonesOptions" type="HBoxContainer" parent="Scroll/Content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BonesHelp" type="Label" parent="Scroll/Content/BonesOptions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.58, 0.61, 0.67, 1)
+text = "Optional low-level controls. Character creation does not require editing bones."
+autowrap_mode = 2
+
+[node name="SymmetryToggle" type="CheckButton" parent="Scroll/Content/BonesOptions"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+button_pressed = true
+text = "Symmetry"
+tooltip_text = "Use one control for both left and right bones"
+
+[node name="BoneList" type="VBoxContainer" parent="Scroll/Content"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
 [connection signal="pressed" from="Header/Count/ResetAll" to="." method="reset_all"]
-[connection signal="toggled" from="Header/Count/ToggleStack/SymmetryToggle" to="." method="_on_symmetry_toggled"]
+[connection signal="toggled" from="Scroll/Content/BonesHeader/BonesVisibleToggle" to="." method="_on_bones_visible_toggled"]
+[connection signal="toggled" from="Scroll/Content/BonesOptions/SymmetryToggle" to="." method="_on_symmetry_toggled"]

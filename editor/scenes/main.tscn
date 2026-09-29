@@ -1,67 +1,73 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3 uid="uid://cod4evv1wk2n0"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://b3proxre3uf3k" path="res://scripts/main.gd" id="1_main"]
 [ext_resource type="PackedScene" path="res://scenes/appearance_tab.tscn" id="2_app"]
 [ext_resource type="PackedScene" path="res://scenes/proportions_tab.tscn" id="3_prop"]
 [ext_resource type="PackedScene" path="res://scenes/settings_tab.tscn" id="4_set"]
-[ext_resource type="Theme" path="res://data/bodyforge_theme.tres" id="5_theme"]
+[ext_resource type="Theme" uid="uid://c67mn8mk5uuct" path="res://data/bodyforge_theme.tres" id="5_theme"]
 [ext_resource type="PackedScene" path="res://scenes/donation_footer.tscn" id="6_donate"]
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" unique_id=1363706080]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("5_theme")
 script = ExtResource("1_main")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1142644815]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0.027, 0.031, 0.04, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=666917292]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 16
 
-[node name="Layout" type="HBoxContainer" parent="MarginContainer"]
+[node name="Layout" type="HBoxContainer" parent="MarginContainer" unique_id=972338993]
 layout_mode = 2
 
-[node name="MainColumn" type="VBoxContainer" parent="MarginContainer/Layout"]
+[node name="MainColumn" type="VBoxContainer" parent="MarginContainer/Layout" unique_id=471391789]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="Header" type="PanelContainer" parent="MarginContainer/Layout/MainColumn"]
+[node name="Header" type="PanelContainer" parent="MarginContainer/Layout/MainColumn" unique_id=1180934548]
 layout_mode = 2
 
-[node name="HeaderInner" type="HBoxContainer" parent="MarginContainer/Layout/MainColumn/Header"]
+[node name="HeaderInner" type="HBoxContainer" parent="MarginContainer/Layout/MainColumn/Header" unique_id=707479424]
 layout_mode = 2
 
-[node name="Brand" type="VBoxContainer" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner"]
+[node name="Brand" type="VBoxContainer" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner" unique_id=1113862471]
 layout_mode = 2
 
-[node name="TitleRow" type="HBoxContainer" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner/Brand"]
+[node name="TitleRow" type="HBoxContainer" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner/Brand" unique_id=371282421]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="TitleLabel" type="Label" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner/Brand/TitleRow"]
+[node name="TitleLabel" type="Label" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner/Brand/TitleRow" unique_id=112831923]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.72, 0.38, 1)
 theme_override_font_sizes/font_size = 24
 text = "BODYFORGE"
 
-[node name="VersionLabel" type="Label" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner/Brand/TitleRow"]
+[node name="VersionLabel" type="Label" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner/Brand/TitleRow" unique_id=1938420054]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.47, 0.16, 1)
@@ -69,120 +75,161 @@ theme_override_font_sizes/font_size = 11
 text = "v0.0.0"
 vertical_alignment = 2
 
-[node name="Subtitle" type="Label" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner/Brand"]
+[node name="Subtitle" type="Label" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner/Brand" unique_id=922509817]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.57, 0.6, 0.66, 1)
 text = "Shape your Viking while Valheim renders every change"
 
-[node name="Spacer" type="Control" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner"]
+[node name="Spacer" type="Control" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner" unique_id=1670030578]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LiveStatus" type="Label" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner"]
-unique_name_in_owner = true
+[node name="StatusSlot" type="Control" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner"]
+custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
+clip_contents = true
+
+[node name="LiveStatus" type="Label" parent="MarginContainer/Layout/MainColumn/Header/HeaderInner/StatusSlot" unique_id=2119285954]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.63, 0.66, 0.72, 1)
 text = "● Waiting for Valheim"
+horizontal_alignment = 2
+vertical_alignment = 1
+text_overrun_behavior = 3
 
-[node name="CharacterCard" type="PanelContainer" parent="MarginContainer/Layout/MainColumn"]
+[node name="UpdateBanner" type="PanelContainer" parent="MarginContainer/Layout/MainColumn"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
-[node name="CharacterRow" type="HBoxContainer" parent="MarginContainer/Layout/MainColumn/CharacterCard"]
+[node name="UpdateRow" type="HBoxContainer" parent="MarginContainer/Layout/MainColumn/UpdateBanner"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="UpdateLabel" type="Label" parent="MarginContainer/Layout/MainColumn/UpdateBanner/UpdateRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.47, 0.16, 1)
+theme_override_font_sizes/font_size = 12
+text = "UPDATE AVAILABLE"
+vertical_alignment = 1
+
+[node name="UpdateMessage" type="Label" parent="MarginContainer/Layout/MainColumn/UpdateBanner/UpdateRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "A new version of BodyForge is available."
+vertical_alignment = 1
+
+[node name="ViewReleaseButton" type="Button" parent="MarginContainer/Layout/MainColumn/UpdateBanner/UpdateRow"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+text = "VIEW RELEASE"
+
+[node name="UpdateRequest" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+timeout = 10.0
+
+[node name="CharacterCard" type="PanelContainer" parent="MarginContainer/Layout/MainColumn" unique_id=1755766633]
 layout_mode = 2
 
-[node name="CharLabel" type="Label" parent="MarginContainer/Layout/MainColumn/CharacterCard/CharacterRow"]
+[node name="CharacterRow" type="HBoxContainer" parent="MarginContainer/Layout/MainColumn/CharacterCard" unique_id=953737869]
+layout_mode = 2
+
+[node name="CharLabel" type="Label" parent="MarginContainer/Layout/MainColumn/CharacterCard/CharacterRow" unique_id=1815472858]
 custom_minimum_size = Vector2(82, 0)
 layout_mode = 2
 text = "Character"
 
-[node name="ActiveProfileLabel" type="Label" parent="MarginContainer/Layout/MainColumn/CharacterCard/CharacterRow"]
+[node name="ActiveProfileLabel" type="Label" parent="MarginContainer/Layout/MainColumn/CharacterCard/CharacterRow" unique_id=1009233748]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.63, 0.66, 0.72, 1)
 text = "Waiting for an in-world character…"
+text_overrun_behavior = 3
 
-[node name="ImportButton" type="Button" parent="MarginContainer/Layout/MainColumn/CharacterCard/CharacterRow"]
+[node name="ImportButton" type="Button" parent="MarginContainer/Layout/MainColumn/CharacterCard/CharacterRow" unique_id=2040591773]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Import"
 
-[node name="ExportButton" type="Button" parent="MarginContainer/Layout/MainColumn/CharacterCard/CharacterRow"]
+[node name="ExportButton" type="Button" parent="MarginContainer/Layout/MainColumn/CharacterCard/CharacterRow" unique_id=1015853139]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Export"
 
-[node name="Tabs" type="TabContainer" parent="MarginContainer/Layout/MainColumn"]
+[node name="Tabs" type="TabContainer" parent="MarginContainer/Layout/MainColumn" unique_id=1600278522]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+current_tab = 0
 
-[node name="Appearance" parent="MarginContainer/Layout/MainColumn/Tabs" instance=ExtResource("2_app")]
+[node name="Appearance" parent="MarginContainer/Layout/MainColumn/Tabs" unique_id=226105800 instance=ExtResource("2_app")]
+layout_mode = 2
+metadata/_tab_index = 0
 
-[node name="Proportions" parent="MarginContainer/Layout/MainColumn/Tabs" instance=ExtResource("3_prop")]
+[node name="Proportions" parent="MarginContainer/Layout/MainColumn/Tabs" unique_id=589996133 instance=ExtResource("3_prop")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
 
-[node name="Settings" parent="MarginContainer/Layout/MainColumn/Tabs" instance=ExtResource("4_set")]
+[node name="Settings" parent="MarginContainer/Layout/MainColumn/Tabs" unique_id=1121567641 instance=ExtResource("4_set")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
 
-[node name="SaveCard" type="PanelContainer" parent="MarginContainer/Layout/MainColumn"]
+[node name="SaveCard" type="PanelContainer" parent="MarginContainer/Layout/MainColumn" unique_id=137430087]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 
-[node name="SaveRow" type="HBoxContainer" parent="MarginContainer/Layout/MainColumn/SaveCard"]
+[node name="SaveRow" type="HBoxContainer" parent="MarginContainer/Layout/MainColumn/SaveCard" unique_id=120758208]
 layout_mode = 2
 
-[node name="SaveCopy" type="VBoxContainer" parent="MarginContainer/Layout/MainColumn/SaveCard/SaveRow"]
+[node name="SaveTitle" type="Label" parent="MarginContainer/Layout/MainColumn/SaveCard/SaveRow" unique_id=1020862700]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="SaveTitle" type="Label" parent="MarginContainer/Layout/MainColumn/SaveCard/SaveRow/SaveCopy"]
-layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Save character"
 
-[node name="SaveHelp" type="Label" parent="MarginContainer/Layout/MainColumn/SaveCard/SaveRow/SaveCopy"]
+[node name="SaveCharacterButton" type="Button" parent="MarginContainer/Layout/MainColumn/SaveCard/SaveRow" unique_id=1883338163]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 37)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.58, 0.61, 0.67, 1)
-text = "Saves the active Valheim profile and its BodyForge proportions."
-
-[node name="StatusLabel" type="Label" parent="MarginContainer/Layout/MainColumn/SaveCard/SaveRow/SaveCopy"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Ready."
-autowrap_mode = 2
-
-[node name="SaveCharacterButton" type="Button" parent="MarginContainer/Layout/MainColumn/SaveCard/SaveRow"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 46)
-layout_mode = 2
-disabled = true
 theme_type_variation = &"PrimaryButton"
+disabled = true
 text = "SAVE CHARACTER"
 
-[node name="DonationFooter" parent="MarginContainer/Layout/MainColumn" instance=ExtResource("6_donate")]
+[node name="DonationFooter" parent="MarginContainer/Layout/MainColumn" unique_id=307121552 instance=ExtResource("6_donate")]
+layout_mode = 2
 
-[node name="LiveSendTimer" type="Timer" parent="."]
+[node name="LiveSendTimer" type="Timer" parent="." unique_id=589808966]
 unique_name_in_owner = true
 wait_time = 0.08
 one_shot = true
 
-[node name="LiveStatusTimer" type="Timer" parent="."]
+[node name="LiveStatusTimer" type="Timer" parent="." unique_id=3256260]
 unique_name_in_owner = true
 wait_time = 0.5
 autostart = true
 
-[node name="ImportDialog" type="FileDialog" parent="."]
+[node name="ImportDialog" type="FileDialog" parent="." unique_id=1659176843]
 unique_name_in_owner = true
-title = "Import BodyForge character"
+title = "Open a File"
 size = Vector2i(760, 520)
 file_mode = 0
 access = 2
 filters = PackedStringArray("*.json ; BodyForge character")
 
-[node name="ExportDialog" type="FileDialog" parent="."]
+[node name="ExportDialog" type="FileDialog" parent="." unique_id=547537724]
 unique_name_in_owner = true
 title = "Export BodyForge character"
 size = Vector2i(760, 520)
-file_mode = 4
 access = 2
 filters = PackedStringArray("*.json ; BodyForge character")
 
@@ -193,3 +240,5 @@ filters = PackedStringArray("*.json ; BodyForge character")
 [connection signal="timeout" from="LiveStatusTimer" to="." method="_poll_live_status"]
 [connection signal="file_selected" from="ImportDialog" to="." method="_on_import_file_selected"]
 [connection signal="file_selected" from="ExportDialog" to="." method="_on_export_file_selected"]
+[connection signal="pressed" from="MarginContainer/Layout/MainColumn/UpdateBanner/UpdateRow/ViewReleaseButton" to="." method="_on_view_release_pressed"]
+[connection signal="request_completed" from="UpdateRequest" to="." method="_on_update_request_completed"]

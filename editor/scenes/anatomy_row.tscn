@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/anatomy_row.gd" id="1"]
+
+[node name="AnatomyRow" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+theme_override_constants/separation = 10
+script = ExtResource("1")
+
+[node name="NameLabel" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Anatomy"
+
+[node name="Slider" type="HSlider" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+
+[node name="ValueBox" type="SpinBox" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+allow_greater = false
+allow_lesser = false
+
+[connection signal="value_changed" from="Slider" to="." method="_on_slider_changed"]
+[connection signal="value_changed" from="ValueBox" to="." method="_on_value_box_changed"]

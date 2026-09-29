@@ -7,8 +7,12 @@ const PLUGIN_FILE := "BepInEx/plugins/BodyForge/BodyForge.dll"
 const BUNDLED_PLUGIN := "res://bundled/BodyForge.dll"
 const DOWNLOAD_FILE := "user://BepInExPack_Valheim.zip"
 const LINUX_LAUNCH_COMMAND := "WINEDLLOVERRIDES=\"winhttp=n,b\" %command%"
+const CONSENT_TEXT := "I understand that BepInEx is required third-party software."
+const SATISFIED_TEXT := "BepInEx is already installed and compatible."
 
 @onready var game_dir_edit: LineEdit = %GameDir
+@onready var bepinex_title: Label = %BepInExTitle
+@onready var third_party_info: RichTextLabel = %ThirdPartyInfo
 @onready var bep_status: Label = %BepInExStatus
 @onready var consent_check: CheckButton = %ConsentCheck
 @onready var install_button: Button = %InstallBepInExButton
@@ -112,6 +116,7 @@ func _check_installation() -> void:
 	if not _is_game_dir(game_dir):
 		bep_status.text = "Valheim was not found in this folder."
 		bep_status.add_theme_color_override("font_color", Color(0.9, 0.45, 0.45))
+		_apply_dependency_state()
 		_update_actions()
 		return
 	var version := _installed_bepinex_version(game_dir)
@@ -126,19 +131,40 @@ func _check_installation() -> void:
 		else:
 			bep_status.text = "BepInEx %s is too old. Update is required; BodyForge cannot continue with this version." % version
 			bep_status.add_theme_color_override("font_color", Color(0.9, 0.45, 0.45))
+	_apply_dependency_state()
 	_update_actions()
+
+
+func _apply_dependency_state() -> void:
+	if _compatible:
+		bepinex_title.text = "2. BepInEx dependency (complete)"
+		consent_check.set_pressed_no_signal(true)
+		consent_check.text = SATISFIED_TEXT
+		consent_check.disabled = true
+		third_party_info.modulate.a = 0.5
+		third_party_info.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		setup_status.text = "BepInEx is already compatible. Reinstallation is optional."
+		setup_status.remove_theme_color_override("font_color")
+	else:
+		bepinex_title.text = "2. BepInEx dependency"
+		if consent_check.disabled:
+			consent_check.set_pressed_no_signal(false)
+		consent_check.text = CONSENT_TEXT
+		consent_check.disabled = false
+		third_party_info.modulate.a = 1.0
+		third_party_info.mouse_filter = Control.MOUSE_FILTER_STOP
 
 
 func _update_actions() -> void:
 	var valid_game := _is_game_dir(game_dir_edit.text.strip_edges())
-	install_button.disabled = _busy or not valid_game or not consent_check.button_pressed
+	install_button.disabled = _busy or not valid_game or (not _compatible and not consent_check.button_pressed)
 	install_button.text = "Reinstall / update recommended BepInEx" if _compatible else "Download and install compatible BepInEx"
 	var linux_ready := not linux_launch_row.visible or linux_launch_check.button_pressed
-	finish_button.disabled = _busy or not _compatible or not consent_check.button_pressed or not linux_ready
+	finish_button.disabled = _busy or not _compatible or not linux_ready
 
 
 func _on_install_bepinex_pressed() -> void:
-	if not consent_check.button_pressed:
+	if not _compatible and not consent_check.button_pressed:
 		_fail("You must acknowledge the required third-party dependency first.")
 		return
 	_busy = true

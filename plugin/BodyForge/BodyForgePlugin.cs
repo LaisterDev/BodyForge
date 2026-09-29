@@ -12,6 +12,7 @@ namespace BodyForge
             Instance = this;
             Harmony harmony = new Harmony(PluginInfo.Id);
             harmony.PatchAll();
+            StartCoroutine(ReleaseUpdateChecker.Check());
             Logger.LogInfo($"{PluginInfo.Name} {PluginInfo.Version} loaded");
         }
 
@@ -19,6 +20,11 @@ namespace BodyForge
         {
             LiveBridge.Tick();
             MultiplayerSync.Tick();
+            AnatomyDeformer.Tick();
+            UpdateNotice.Tick();
+#if BODYFORGE_DEV
+            AnatomyCalibration.Tick();
+#endif
         }
 
         public static BodyForgePlugin Instance { get; private set; }
@@ -34,6 +40,6 @@ namespace BodyForge
     {
         public const string Id = "com.bodyforge.characterprops";
         public const string Name = "BodyForge Character Proportions";
-        public const string Version = "0.4.2";
+        public const string Version = "0.5.0";
     }
 }
